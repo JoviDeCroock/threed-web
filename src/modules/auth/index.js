@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useMutation } from 'urql';
 import { navigate } from "@reach/router";
+import { Button } from '../../components/Button';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = React.useState(true);
@@ -47,16 +48,16 @@ const Auth = () => {
         />
       </InputGroup>
       <ButtonGroup>
-        <button disabled={data.fetching} type="submit">
+        <Button disabled={data.fetching} type="submit">
           {isLogin ? "login" : "sign up"}
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={data.fetching}
           type="button"
           onClick={() => setIsLogin(l => !l)}
         >
           {isLogin ? "I have no account" : "I have an account"}
-        </button>
+        </Button>
       </ButtonGroup>
     </Wrapper>
   );

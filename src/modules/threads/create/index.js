@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import { useMutation } from "urql";
 import { THREAD_FRAGMENT } from "../fragments";
+import { Button } from "../../../components/Button";
 
 const CreateThread = () => {
   const [title, setTitle] = React.useState("");
@@ -40,7 +41,7 @@ const CreateThread = () => {
           onChange={e => setText(e.currentTarget.value)}
         />
       </InputGroup>
-      <Button type="submit">Create</Button>
+      <StyledButton type="submit">Create</StyledButton>
     </Wrapper>
   );
 };
@@ -64,7 +65,7 @@ const InputGroup = styled.div`
   }
 `;
 
-const Button = styled.button`
+const StyledButton = styled(Button)`
   align-self: flex-end;
   width: 50px;
 `;
