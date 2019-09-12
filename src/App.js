@@ -2,8 +2,9 @@ import React from 'react';
 import { Router } from "@reach/router";
 import styled from 'styled-components';
 import Header from './components/Header';
-import Home from "./components/Home";
-import Auth from './components/Auth';
+import Home from "./modules/threads/list";
+import Auth from "./modules/auth";
+import CreateThread from './modules/threads/create';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -18,6 +19,7 @@ function App() {
       <Wrapper>
         <Router>
           <Home path="/" />
+          <CreateThread path="/new" />
           <Auth path="/login" />
         </Router>
       </Wrapper>

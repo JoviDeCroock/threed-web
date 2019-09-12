@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { useQuery } from 'urql';
 import { Link } from '@reach/router';
 import { getToken, removeToken } from '../utils/auth';
-import { ME_QUERY } from '../queries/me';
+import { ME_QUERY } from '../modules/auth/meQuery';
 
 const Home = () => {
   const isLoggedIn = !!getToken();
 
   const [{ data, fetching }, refetch] = useQuery({ query: ME_QUERY });
-  console.log(data);
+
   return (
     <Wrapper>
       <LinksWrapper>

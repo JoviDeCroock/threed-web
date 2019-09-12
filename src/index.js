@@ -5,7 +5,7 @@ import { cacheExchange } from '@urql/exchange-graphcache';
 import './index.css'
 import App from './App';
 import { getToken, setToken } from './utils/auth';
-import { ME_QUERY } from './queries/me';
+import { ME_QUERY } from './modules/auth/meQuery';
 
 const cache = cacheExchange({
   updates: {
