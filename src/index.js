@@ -22,10 +22,33 @@ const subscriptionClient = new SubscriptionClient("ws://localhost:3001/subscript
 });
 
 const cache = cacheExchange({
+  optimistic: {
+    likeThread: (args, cache) => {
+      // TODO TEMPFIX:
+      const likes = cache.getRecord(`Thread:${args.threadId}.likesNumber`);
+      // GOOD ONE: needs release
+      // const thread = cache.readQuery({
+      //   query: gql`
+      //     query ($id: ID!) {
+      //       thread(id: $id) {
+      //         id
+      //         likesNumber
+      //         __typename
+      //       }
+      //     }
+      //   `
+      // });
+      // console.log(thread);
+      return {
+        id: args.threadId,
+        likesNumber: likes + 1,
+        __typename: 'Thread'
+      }
+    },
+  },
   updates: {
     Mutation: {
       createThread: (result, _args, cache) => {
-        console.log('creating thread', result);
         cache.updateQuery(
           {
             // TODO: this is temp because of a bug in graphcache convert back to fragment when new version is released
