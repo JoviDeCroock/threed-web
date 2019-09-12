@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useMutation, useSubscription } from 'urql';
+import { useMutation } from 'urql';
+import { Link } from "@reach/router";
 import { timeDifferenceForDate } from '../../../utils/timeDiff';
+import { useNewLikes, useNewReplies } from '../common';
 
 const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, createdAt }) => {
   const [result, like] = useMutation(LIKE_THREAD_MUTATION);
-  useSubscription({ query: NEW_LIKES_SUBSCRIPTION, variables: { id } });
-  useSubscription({ query: NEW_REPLIES_SUBSCRIPTION, variables: { id } })
+  useNewLikes(id);
+  useNewReplies(id);
 
   return (
     <Wrapper>
@@ -22,7 +24,7 @@ const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, created
           </span>
         </button>
         <Likes>{likesNumber} likes</Likes>
-        <Replies>{repliesNumber} replies</Replies>
+        <Replies to={`/threads/${id}`}>{repliesNumber} replies</Replies>
       </TextGroup>
     </Wrapper>
   );
@@ -53,7 +55,11 @@ const Likes = styled(CreatedBy)`
   margin-right: 12px;
 `;
 
-const Replies = styled(CreatedBy)``;
+const Replies = styled(Link)`
+  font-size: 12px;
+  margin-bottom: 2px;
+  margin-top: 0;
+`;
 
 const TextGroup = styled.div`
   align-items: center;
@@ -64,34 +70,6 @@ const LIKE_THREAD_MUTATION = `
   mutation($id: ID!) {
     likeThread(threadId: $id) {
       id
-      likesNumber
-    }
-  }
-`;
-
-const NEW_LIKES_SUBSCRIPTION = `
-  subscription($id: ID!) {
-    newThreadLike (threadId: $id) {
-      id
-      createdBy {
-        id
-        username
-      }
-      createdAt
-    }
-  }
-`;
-
-const NEW_REPLIES_SUBSCRIPTION = `
-  subscription($id: ID!) {
-    newReply (threadId: $id) {
-      id
-      text
-      createdBy {
-        id
-        username
-      }
-      createdAt
       likesNumber
     }
   }
