@@ -1,29 +1,21 @@
 import React from "react";
 import { useQuery } from "urql";
-import styled from "styled-components";
 import Thread from './Thread';
 
 const Home = () => {
-  const [{ fetching, data, error }] = useQuery({
+  const [{ fetching, data }] = useQuery({
     query: THREADS_QUERY,
     variables: { sortBy: "LATEST" }
   });
 
   if (fetching) return <p>Loading...</p>;
 
-  console.log(data, error);
-
   return (
-    <Wrapper>
+    <div>
       {data.threads.map(thread => <Thread key={thread.id} {...thread} />)}
-    </Wrapper>
+    </div>
   );
 }
-
-const Wrapper = styled.div`
-  height: 100%;
-  padding: 8px 16px;
-`;
 
 const THREADS_QUERY = `
   query getThreads (

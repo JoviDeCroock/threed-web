@@ -6,7 +6,9 @@ import Home from "./components/Home";
 import Auth from './components/Auth';
 
 const Wrapper = styled.div`
-  background-color: #F6F6EF;
+  height: 100%;
+  padding: 8px 16px;
+  background-color: #f6f6ef;
 `;
 
 function App() {

@@ -5,6 +5,10 @@ body, html {
   height: 100%;
 }
 
+input {
+  max-width: 250px;
+}
+
 #root {
   height: 100%;
 }
