@@ -1,8 +1,10 @@
 import React from "react";
 import gql from "graphql-tag";
+import { useMutation } from "urql";
 import { THREAD_FRAGMENT } from "../fragments";
 
 const CreateThread = () => {
+  useMutation(CREATE_THREAD_MUTATION)
   return <div>hello</div>;
 };
 

@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Home from "./modules/threads/list";
 import Auth from "./modules/auth";
 import CreateThread from './modules/threads/create';
+import ThreadDetail from './modules/threads/detail';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -12,19 +13,18 @@ const Wrapper = styled.div`
   background-color: #f6f6ef;
 `;
 
-function App() {
-  return (
-    <React.Fragment>
-      <Header />
-      <Wrapper>
-        <Router>
-          <Home path="/" />
-          <CreateThread path="/new" />
-          <Auth path="/login" />
-        </Router>
-      </Wrapper>
-    </React.Fragment>
-  );
-}
+const App = () => (
+  <React.Fragment>
+    <Header />
+    <Wrapper>
+      <Router>
+        <Home path="/" />
+        <CreateThread path="/new" />
+        <ThreadDetail path="/threads/:threadId" />
+        <Auth path="/login" />
+      </Router>
+    </Wrapper>
+  </React.Fragment>
+);
 
 export default App;

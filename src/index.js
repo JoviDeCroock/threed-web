@@ -7,18 +7,19 @@ import App from './App';
 import { getToken, setToken } from './utils/auth';
 import { ME_QUERY } from './modules/auth/meQuery';
 
+const updateAuth = (cache, { user, token }) => {
+  setToken(token);
+  cache.updateQuery({ query: ME_QUERY }, () => ({ me: user }));
+}
+
 const cache = cacheExchange({
   updates: {
     Mutation: {
       signin: (result, _args, cache) => {
-        const { user, token } = result.signin;
-        setToken(token);
-        cache.updateQuery({ query: ME_QUERY }, () => ({ me: user }));
+        updateAuth(cache, result.signin);
       },
       signup: (result, _args, cache) => {
-        const { user, token } = result.signup;
-        setToken(token);
-        cache.updateQuery({ query: ME_QUERY }, () => ({ me: user }));
+        updateAuth(cache, result.signup);
       }
     }
   }
