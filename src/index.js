@@ -21,6 +21,27 @@ const subscriptionClient = new SubscriptionClient("ws://localhost:3001/subscript
   }
 });
 
+// TODO: this is temp because of a bug in graphcache convert back to fragment when new version is released
+const listUpdateQuery = {
+  query: gql`
+    query($sortBy: SortBy!, $skip: Int, $limit: Int) {
+      threads(sortBy: $sortBy, limit: $limit, skip: $skip) {
+        id
+        text
+        title
+        createdBy {
+          id
+          username
+        }
+        createdAt
+        likesNumber
+        repliesNumber
+      }
+    }
+  `,
+  variables: { sortBy: "LATEST" }
+};
+
 const cache = cacheExchange({
   optimistic: {
     likeThread: (args, cache) => {
@@ -49,27 +70,7 @@ const cache = cacheExchange({
   updates: {
     Mutation: {
       createThread: (result, _args, cache) => {
-        cache.updateQuery(
-          {
-            // TODO: this is temp because of a bug in graphcache convert back to fragment when new version is released
-            query: gql`
-              query($sortBy: SortBy!, $skip: Int, $limit: Int) {
-                threads(sortBy: $sortBy, limit: $limit, skip: $skip) {
-                  id
-                  text
-                  title
-                  createdBy {
-                    id
-                    username
-                  }
-                  createdAt
-                  likesNumber
-                  repliesNumber
-                }
-              }
-            `,
-            variables: { sortBy: "LATEST" }
-          },
+        cache.updateQuery(listUpdateQuery,
           data => {
             // TODO: maybe a bit too naive, should we cut the last element out as well?
             data.threads.unshift(result.createThread);
@@ -85,19 +86,23 @@ const cache = cacheExchange({
       }
     },
     Subscription: {
+      newThread: (result, args, cache) => {
+        cache.updateQuery(listUpdateQuery,
+          data => {
+            if (data && data.threads && !data.threads.find(({ id }) => id === data.newThread.id)) {
+              data.threads.unshift(result.newThread);
+            }
+            return data;
+          })
+      },
       newThreadLike: (result, args, cache) => {
         // TODO: update likesNumber (temp) and add to thread.likes[]
-        cache.writeRecord(`Thread:${args.threadId}.likesNumber`, result.likesNumber);
       },
       newReply: (result, args, cache) => {
         // TODO: update with new reply
       },
       newReplyLike: (result, args, cache) => {
         // TODO: update likesNumber (temp) and add to reply.likes[]
-        cache.writeRecord(
-          `Reply:${args.replyId}.likesNumber`,
-          result.likesNumber
-        );
       }
     }
   }
