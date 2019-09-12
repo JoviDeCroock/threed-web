@@ -86,13 +86,18 @@ const cache = cacheExchange({
     },
     Subscription: {
       newThreadLike: (result, args, cache) => {
-        // TODO: update with new like
+        // TODO: update likesNumber (temp) and add to thread.likes[]
+        cache.writeRecord(`Thread:${args.threadId}.likesNumber`, result.likesNumber);
       },
       newReply: (result, args, cache) => {
         // TODO: update with new reply
       },
       newReplyLike: (result, args, cache) => {
-        // TODO: update with new like
+        // TODO: update likesNumber (temp) and add to reply.likes[]
+        cache.writeRecord(
+          `Reply:${args.replyId}.likesNumber`,
+          result.likesNumber
+        );
       }
     }
   }
