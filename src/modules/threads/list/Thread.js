@@ -7,6 +7,7 @@ import { useNewLikes, useNewReplies } from '../common';
 
 const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, createdAt }) => {
   const [result, like] = useMutation(LIKE_THREAD_MUTATION);
+
   useNewLikes(id);
   useNewReplies(id);
 
@@ -35,7 +36,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h3`
-  margin-bottom: 2px;
+  margin-bottom: 6px;
   margin-top: 0;
 `;
 
@@ -56,6 +57,7 @@ const Likes = styled(CreatedBy)`
 `;
 
 const Replies = styled(Link)`
+  color: black;
   font-size: 12px;
   margin-bottom: 2px;
   margin-top: 0;

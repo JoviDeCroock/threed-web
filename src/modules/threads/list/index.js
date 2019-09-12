@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "urql";
+import { useQuery, useSubscription } from "urql";
 import Thread from "./Thread";
 import gql from "graphql-tag";
 import { THREAD_FRAGMENT } from "../fragments";
@@ -9,6 +9,8 @@ const Home = () => {
     query: THREADS_QUERY,
     variables: { sortBy: "LATEST" }
   });
+
+  useSubscription({ query: NEW_THREAD_SUBSCRIPTION });
 
   if (fetching) return <p>Loading...</p>;
 
@@ -24,6 +26,15 @@ const Home = () => {
 const THREADS_QUERY = gql`
   query($sortBy: SortBy!, $skip: Int, $limit: Int) {
     threads(sortBy: $sortBy, limit: $limit, skip: $skip) {
+      ...ThreadFragment
+    }
+  }
+  ${THREAD_FRAGMENT}
+`;
+
+const NEW_THREAD_SUBSCRIPTION = gql`
+  subscription {
+    newThread {
       ...ThreadFragment
     }
   }

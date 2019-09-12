@@ -8,3 +8,9 @@ body, html {
 #root {
   height: 100%;
 }
+
+button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}

@@ -56,6 +56,7 @@ const LinksWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  color: black;
   margin-right: 8px;
 `;
 
