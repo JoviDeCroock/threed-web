@@ -28,7 +28,7 @@ const Auth = () => {
         <label htmlFor="username">Username: </label>
         <input
           type="text"
-          onChange={e => setUsername(e.target.value)}
+          onChange={e => setUsername(e.currentTarget.value)}
           id="username"
           name="username"
           disabled={data.fetching}
@@ -39,7 +39,7 @@ const Auth = () => {
         <label htmlFor="password">Password: </label>
         <input
           type="password"
-          onChange={e => setPassword(e.target.value)}
+          onChange={e => setPassword(e.currentTarget.value)}
           id="password"
           name="password"
           disabled={data.fetching}

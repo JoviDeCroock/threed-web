@@ -8,7 +8,7 @@ import CreateThread from './modules/threads/create';
 import ThreadDetail from './modules/threads/detail';
 
 const Wrapper = styled.div`
-  height: 100%;
+  min-height: 100%;
   padding: 8px 16px;
   background-color: #f6f6ef;
 `;
