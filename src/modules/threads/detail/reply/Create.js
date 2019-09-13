@@ -4,6 +4,7 @@ import { useMutation } from 'urql';
 import { REPLY_FRAGMENT } from '../../fragments';
 import gql from 'graphql-tag';
 import { Button } from '../../../../components/Button';
+import { TextField } from '../../../../components/TextField';
 
 const CreateReply = ({ threadId }) => {
   const [result, reply] = useMutation(CREATE_REPLY_MUTATION);
@@ -19,16 +20,14 @@ const CreateReply = ({ threadId }) => {
 
   return (
     <Form onSubmit={onSubmit}>
-      <InputWrapper>
-        <label htmlFor="text">Create a reply</label>
-        <TextArea
-          name="text"
-          id="text"
-          disabled={result.fetching}
-          onChange={e => setText(e.currentTarget.value)}
-          value={text}
-        />
-      </InputWrapper>
+      <TextField
+        name="text"
+        placeholder="text"
+        label="Create a reply"
+        disabled={result.fetching}
+        onChange={e => setText(e.currentTarget.value)}
+        value={text}
+      />
       <StyledButton type="submit">Submit</StyledButton>
     </Form>
   );
@@ -38,15 +37,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: min-content;
-`;
-
-const InputWrapper = styled.div`
-  align-items: flex-start;
-  display: flex;
-`;
-
-const TextArea = styled.textarea`
-  width: 500px;
 `;
 
 const StyledButton = styled(Button)`

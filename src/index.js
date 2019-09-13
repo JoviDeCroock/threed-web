@@ -93,12 +93,15 @@ const cache = cacheExchange({
       },
       newThreadLike: (result, args, cache) => {
         // TODO: update likesNumber (temp) and add to thread.likes[]
+        // TODO: should also check if we already have it.
       },
       newReply: (result, args, cache) => {
         // TODO: update with new reply
+        // TODO: should also check if we already have it.
       },
       newReplyLike: (result, args, cache) => {
         // TODO: update likesNumber (temp) and add to reply.likes[]
+        // TODO: should also check if we already have it.
       }
     }
   }

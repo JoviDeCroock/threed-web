@@ -4,6 +4,7 @@ import { useQuery } from 'urql';
 import { Link } from '@reach/router';
 import { getToken, removeToken } from '../utils/auth';
 import { ME_QUERY } from '../modules/auth/meQuery';
+import { Button } from './Button';
 
 const Home = () => {
   const isLoggedIn = !!getToken();
@@ -23,7 +24,7 @@ const Home = () => {
           <WelcomeText>
             {fetching ? "Loading..." : `Welcome ${data.me.username}`}
           </WelcomeText>
-          <button
+          <Button
             type="button"
             onClick={() => {
               removeToken();
@@ -31,7 +32,7 @@ const Home = () => {
             }}
           >
             Logout
-          </button>
+          </Button>
         </LinksWrapper>
       )}
     </Wrapper>

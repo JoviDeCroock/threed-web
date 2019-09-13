@@ -9,6 +9,7 @@ import CreateReply from './reply/Create';
 
 const ThreadDetail = ({ threadId }) => {
   const [{ fetching, data, error }] = useQuery({ query: THREAD_QUERY, variables: { id: threadId } });
+
   useNewLikes(threadId);
   useNewReplies(threadId);
 

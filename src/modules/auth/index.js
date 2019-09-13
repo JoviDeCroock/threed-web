@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useMutation } from 'urql';
 import { navigate } from "@reach/router";
 import { Button } from '../../components/Button';
+import { TextField } from '../../components/TextField';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = React.useState(true);
@@ -25,28 +26,23 @@ const Auth = () => {
 
   return (
     <Wrapper onSubmit={onSubmit}>
-      <InputGroup>
-        <label htmlFor="username">Username: </label>
-        <input
-          type="text"
-          onChange={e => setUsername(e.currentTarget.value)}
-          id="username"
-          name="username"
-          disabled={data.fetching}
-          value={username}
-        />
-      </InputGroup>
-      <InputGroup>
-        <label htmlFor="password">Password: </label>
-        <input
-          type="password"
-          onChange={e => setPassword(e.currentTarget.value)}
-          id="password"
-          name="password"
-          disabled={data.fetching}
-          value={password}
-        />
-      </InputGroup>
+      <TextField
+        type="text"
+        onChange={e => setUsername(e.currentTarget.value)}
+        placeholder="username"
+        name="username"
+        label="username"
+        disabled={data.fetching}
+        value={username}
+      />
+      <TextField
+        type="password"
+        label="password"
+        onChange={e => setPassword(e.currentTarget.value)}
+        name="password"
+        disabled={data.fetching}
+        value={password}
+      />
       <ButtonGroup>
         <Button disabled={data.fetching} type="submit">
           {isLogin ? "login" : "sign up"}
@@ -73,18 +69,6 @@ const ButtonGroup = styled.div`
   display: flex;
   > button {
     margin-right: 8px;
-  }
-`;
-
-const InputGroup = styled.div`
-  align-items: center;
-  display: flex;
-  margin-bottom: 12px;
-  > label {
-    width: 100px;
-  }
-  > input {
-    width: 400px;
   }
 `;
 
