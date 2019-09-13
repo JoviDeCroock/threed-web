@@ -14,3 +14,16 @@ export const THREAD_FRAGMENT = gql`
     repliesNumber
   }
 `;
+
+export const REPLY_FRAGMENT = gql`
+  fragment ReplyFragment on Reply {
+    id
+    text
+    createdBy {
+      id
+      username
+    }
+    createdAt
+    likesNumber
+  }
+`;

@@ -8,6 +8,7 @@ import { getToken, setToken } from './utils/auth';
 import { ME_QUERY } from './modules/auth/meQuery';
 import "./index.css";
 import gql from 'graphql-tag';
+import { THREAD_FRAGMENT } from './modules/threads/fragments';
 
 const updateAuth = (cache, { user, token }) => {
   setToken(token);
@@ -26,18 +27,10 @@ const listUpdateQuery = {
   query: gql`
     query($sortBy: SortBy!, $skip: Int, $limit: Int) {
       threads(sortBy: $sortBy, limit: $limit, skip: $skip) {
-        id
-        text
-        title
-        createdBy {
-          id
-          username
-        }
-        createdAt
-        likesNumber
-        repliesNumber
+        ...ThreadFragment
       }
     }
+    ${THREAD_FRAGMENT}
   `,
   variables: { sortBy: "LATEST" }
 };
@@ -83,6 +76,9 @@ const cache = cacheExchange({
       },
       signup: (result, _args, cache) => {
         updateAuth(cache, result.signup);
+      },
+      reply: (result, { threadId }, cache) => {
+        // TODO: wait for writeFragment
       }
     },
     Subscription: {

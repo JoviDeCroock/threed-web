@@ -1,17 +1,17 @@
 import React from 'react';
 import gql from 'graphql-tag';
-import { THREAD_FRAGMENT } from '../fragments';
+import { THREAD_FRAGMENT, REPLY_FRAGMENT } from '../fragments';
 import { useQuery } from 'urql';
 import styled from "styled-components";
 import { useNewLikes, useNewReplies } from '../common';
 import Reply from './reply';
+import CreateReply from './reply/Create';
 
 const ThreadDetail = ({ threadId }) => {
   const [{ fetching, data, error }] = useQuery({ query: THREAD_QUERY, variables: { id: threadId } });
   useNewLikes(threadId);
   useNewReplies(threadId);
 
-  console.log(data, fetching, error);
   if (fetching || error) return <p>Loading...</p>
 
   return (
@@ -25,6 +25,7 @@ const ThreadDetail = ({ threadId }) => {
           <Reply key={reply.id} {...reply} />
         ))}
       </Replies>
+      <CreateReply threadId={threadId} />
     </Wrapper>
   );
 }
@@ -34,18 +35,12 @@ const THREAD_QUERY = gql`
     thread(id: $id) {
       ...ThreadFragment
       replies {
-        id
-        text
-        createdBy {
-          id
-          username
-        }
-        createdAt
-        likesNumber
+        ...ReplyFragment
       }
     }
   }
   ${THREAD_FRAGMENT}
+  ${REPLY_FRAGMENT}
 `;
 
 const Wrapper = styled.div`
