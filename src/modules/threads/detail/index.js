@@ -51,6 +51,7 @@ const THREAD_QUERY = gql`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 32px;
 `;
 
 const HeaderContainer = styled.div`

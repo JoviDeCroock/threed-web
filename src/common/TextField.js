@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const TextField = ({ disabled, className, onChange, name, value, type, label, placeholder, cols }) => {
   return (
-    <Wrapper className={className}>
+    <Wrapper className={className} multiline={type === 'multiline'}>
       {label && <label htmlFor={name}>{label}</label>}
       <Input
         as={type === 'multiline' ? 'textarea' : 'input'}
@@ -26,8 +26,10 @@ const Wrapper = styled.div`
   margin-bottom: 12px;
 
   > label {
+    align-self: ${({ multiline }) => (multiline ? 'flex-start' : 'unset')};
     width: 100px;
   }
+
   > input, textarea {
     width: 400px;
   }

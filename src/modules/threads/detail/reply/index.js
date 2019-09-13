@@ -1,11 +1,15 @@
 import React from "react";
 import styled from 'styled-components';
-import { useSubscription } from 'urql';
+import { useSubscription, useMutation } from 'urql';
 import gql from 'graphql-tag';
 import { timeDifferenceForDate } from "../../../../utils/timeDiff";
+import { LikeButton } from "../../common/LikeButton";
+import { REPLY_FRAGMENT } from "../../fragments";
 
-const Reply = ({ text, id, createdBy, createdAt }) => {
+const Reply = ({ text, id, createdBy, createdAt, likesNumber }) => {
   useSubscription({ query: NEW_REPLY_LIKE, variables: { id } });
+
+  const [result, like] = useMutation(LIKE_REPLY);
 
   return (
     <Wrapper>
@@ -13,7 +17,9 @@ const Reply = ({ text, id, createdBy, createdAt }) => {
         <Text>{text}</Text>
       </Body>
       <Footer>
-        CreatedBy {createdBy.username} - {timeDifferenceForDate(createdAt)}
+        <LikeButton disabled={result.fetching} onClick={() => like({ id })} />
+        {likesNumber} -&nbsp; created by {createdBy.username} -&nbsp;
+        {timeDifferenceForDate(createdAt)}
       </Footer>
     </Wrapper>
   );
@@ -40,6 +46,15 @@ const Text = styled.p`
   font-size: 16px;
   margin: 0;
   margin-bottom: 8px;
+`;
+
+const LIKE_REPLY = gql`
+  mutation ($id: ID!) {
+    likeReply (replyId: $id) {
+      ...ReplyFragment
+    }
+  }
+  ${REPLY_FRAGMENT}
 `;
 
 const NEW_REPLY_LIKE = gql`

@@ -4,6 +4,7 @@ import { useMutation } from 'urql';
 import { Link } from "@reach/router";
 import { timeDifferenceForDate } from '../../../utils/timeDiff';
 import { useNewLikes, useNewReplies } from '../common';
+import { LikeButton } from '../common/LikeButton';
 
 const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, createdAt }) => {
   const [result, like] = useMutation(LIKE_THREAD_MUTATION);
@@ -19,11 +20,7 @@ const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, created
         Created by: {createdBy.username} - {timeDifferenceForDate(createdAt)}
       </CreatedBy>
       <TextGroup>
-        <Button disabled={result.fetching} onClick={() => like({ id })}>
-          <span role="img" aria-label="Like thread">
-            👍
-          </span>
-        </Button>
+        <LikeButton disabled={result.fetching} onClick={() => like({ id })} />
         <Likes>{likesNumber} likes</Likes>
         <Replies to={`/threads/${id}`}>{repliesNumber} replies</Replies>
       </TextGroup>
@@ -63,13 +60,6 @@ const Replies = styled(Link)`
   font-size: 12px;
   margin-bottom: 2px;
   margin-top: 0;
-`;
-
-const Button = styled.button`
-  transition: background-color 0.33s;
-  &:hover {
-    background-color: #f6f6bf;
-  }
 `;
 
 const TextGroup = styled.div`
