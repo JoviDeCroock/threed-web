@@ -37,6 +37,14 @@ const listUpdateQuery = {
 
 const cache = cacheExchange({
   optimistic: {
+    likeReply: (args, cache) => {
+      const likes = cache.getRecord(`Thread:${args.replyId}.likesNumber`);
+      return {
+        id: args.replyId,
+        likesNumber: likes + 1,
+        __typename: "Reply"
+      };
+    },
     likeThread: (args, cache) => {
       // TODO TEMPFIX:
       const likes = cache.getRecord(`Thread:${args.threadId}.likesNumber`);
