@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router } from "@reach/router";
 import styled from 'styled-components';
-import Header from './common/Header';
+import Header from './layout/Header';
 import Home from "./modules/threads/list";
 import Auth from "./modules/auth";
 import CreateThread from './modules/threads/create';

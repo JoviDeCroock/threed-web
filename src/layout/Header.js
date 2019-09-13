@@ -4,7 +4,7 @@ import { useQuery } from 'urql';
 import { Link } from '@reach/router';
 import { getToken, removeToken } from '../utils/auth';
 import { ME_QUERY } from '../modules/auth/meQuery';
-import { Button } from './Button';
+import { Button } from '../common/Button';
 
 const Home = () => {
   const isLoggedIn = !!getToken();
