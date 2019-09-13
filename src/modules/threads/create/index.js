@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useMutation } from "urql";
 import { THREAD_FRAGMENT } from "../fragments";
 import { Button } from "../../../components/Button";
+import { TextField } from "../../../components/TextField";
 
 const CreateThread = () => {
   const [title, setTitle] = React.useState("");
@@ -13,34 +14,33 @@ const CreateThread = () => {
 
   const onSubmit = React.useCallback(e => {
     e.preventDefault();
-    createThread({ title, text });
+    createThread({ title, text }).then(() => {
+      setText('');
+      setTitle('');
+    });
   }, [title, text, createThread]);
 
   return (
     <Wrapper onSubmit={onSubmit}>
-      <InputGroup>
-        <label htmlFor="title">Title: </label>
-        <input
-          disabled={result.fetching}
-          type="text"
-          name="title"
-          id="title"
-          value={title}
-          onChange={e => setTitle(e.currentTarget.value)}
-        />
-      </InputGroup>
-      <InputGroup>
-        <label htmlFor="text">Text: </label>
-        <textarea
-          cols="3"
-          disabled={result.fetching}
-          type="text"
-          name="text"
-          id="text"
-          value={text}
-          onChange={e => setText(e.currentTarget.value)}
-        />
-      </InputGroup>
+      <TextField
+        disabled={result.fetching}
+        type="text"
+        name="title"
+        placeholder="title"
+        label="title"
+        value={title}
+        onChange={e => setTitle(e.currentTarget.value)}
+      />
+      <TextField
+        cols="3"
+        disabled={result.fetching}
+        type="multiline"
+        name="text"
+        label="text"
+        placeholder="insert your text"
+        value={text}
+        onChange={e => setText(e.currentTarget.value)}
+      />
       <StyledButton type="submit">Create</StyledButton>
     </Wrapper>
   );
@@ -50,19 +50,6 @@ const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   width: min-content;
-`;
-
-const InputGroup = styled.div`
-  align-items: center;
-  display: flex;
-  margin-bottom: 12px;
-
-  > label {
-    width: 100px;
-  }
-  > input, textarea {
-    width: 400px;
-  }
 `;
 
 const StyledButton = styled(Button)`
