@@ -78,7 +78,20 @@ const cache = cacheExchange({
         updateAuth(cache, result.signup);
       },
       reply: (result, { threadId }, cache) => {
-        // TODO: wait for writeFragment
+      //   const fragment = gql`
+      //     fragment _thread on Thread {
+      //       repliesNumber
+      //       replies {
+      //         id
+      //       }
+      //     }
+      //   `;
+      //   const readFragmentData = cache.readFragment(fragment, threadId);
+      //   if (!readFragmentData.replies.find(({ id }) => id === result.reply.id)) {
+      //     readFragmentData.replies.unshift(result.reply);
+      //     readFragmentData.repliesNumber += 1;
+      //     cache.writeFragment(fragment, readFragmentData)
+      //   }
       }
     },
     Subscription: {
@@ -91,17 +104,58 @@ const cache = cacheExchange({
             return data;
           })
       },
-      newThreadLike: (result, args, cache) => {
+      newThreadLike: (result, { threadId }, cache) => {
         // TODO: update likesNumber (temp) and add to thread.likes[]
         // TODO: should also check if we already have it.
+        //   const fragment = gql`
+        //     fragment __thread on Thread {
+        //       likesNumber
+        //       likes {
+        //         id
+        //       }
+        //     }
+        //   `;
+        //   const readFragmentData = cache.readFragment(fragment, threadId);
+        //   if (!readFragmentData.likes.find(({ id }) => id === result.newThreadLike.id)) {
+        //     readFragmentData.likes.unshift(result.newThreadLike);
+        //     readFragmentData.likesNumber += 1;
+        //     cache.writeFragment(fragment, readFragmentData)
+        //   }
+        // }
       },
       newReply: (result, args, cache) => {
-        // TODO: update with new reply
-        // TODO: should also check if we already have it.
+        //   const fragment = gql`
+        //     fragment _thread on Thread {
+        //       repliesNumber
+        //       replies {
+        //         id
+        //       }
+        //     }
+        //   `;
+        //   const readFragmentData = cache.readFragment(fragment, threadId);
+        //   if (!readFragmentData.replies.find(({ id }) => id === result.newReply.id)) {
+        //     readFragmentData.replies.unshift(result.reply);
+        //     readFragmentData.repliesNumber += 1;
+        //     cache.writeFragment(fragment, readFragmentData)
+        //   }
+        // }
       },
       newReplyLike: (result, args, cache) => {
-        // TODO: update likesNumber (temp) and add to reply.likes[]
-        // TODO: should also check if we already have it.
+        //   const fragment = gql`
+        //     fragment _reply on Reply {
+        //       likesNumber
+        //       likes {
+        //         id
+        //       }
+        //     }
+        //   `;
+        //   const readFragmentData = cache.readFragment(fragment, threadId);
+        //   if (!readFragmentData.likes.find(({ id }) => id === result.newReplyLike.id)) {
+        //     readFragmentData.likes.unshift(result.reply);
+        //     readFragmentData.likesNumber += 1;
+        //     cache.writeFragment(fragment, readFragmentData)
+        //   }
+        // }
       }
     }
   }
