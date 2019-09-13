@@ -6,9 +6,9 @@ import { SubscriptionClient } from "subscriptions-transport-ws";
 import App from './App';
 import { getToken, setToken } from './utils/auth';
 import { ME_QUERY } from './modules/auth/meQuery';
-import "./index.css";
 import gql from 'graphql-tag';
 import { THREAD_FRAGMENT } from './modules/threads/fragments';
+import { GlobalStyles } from './layout/GlobalStyles';
 
 const updateAuth = (cache, { user, token }) => {
   setToken(token);
@@ -127,6 +127,7 @@ const client = createClient({
 
 ReactDOM.render(
   <Provider value={client}>
+    <GlobalStyles />
     <App />
   </Provider>,
   document.getElementById("root")
