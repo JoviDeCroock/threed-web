@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useMutation } from 'urql';
 import { REPLY_FRAGMENT } from '../../fragments';
 import gql from 'graphql-tag';
-import { Button } from '../../../../components/Button';
-import { TextField } from '../../../../components/TextField';
+import { Button } from '../../../../common/Button';
+import { TextField } from '../../../../common/TextField';
 
 const CreateReply = ({ threadId }) => {
   const [result, reply] = useMutation(CREATE_REPLY_MUTATION);

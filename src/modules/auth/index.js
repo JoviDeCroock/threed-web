@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useMutation } from 'urql';
 import { navigate } from "@reach/router";
-import { Button } from '../../components/Button';
-import { TextField } from '../../components/TextField';
+import { Button } from '../../common/Button';
+import { TextField } from '../../common/TextField';
+import { useScrollToTop } from '../../common/useScrollToTop';
 
 const Auth = () => {
+  useScrollToTop();
   const [isLogin, setIsLogin] = React.useState(true);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");

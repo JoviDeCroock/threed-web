@@ -3,8 +3,10 @@ import { useQuery, useSubscription } from "urql";
 import Thread from "./Thread";
 import gql from "graphql-tag";
 import { THREAD_FRAGMENT } from "../fragments";
+import { useScrollToTop } from "../../../common/useScrollToTop";
 
 const Home = () => {
+  useScrollToTop();
   const [{ fetching, data }] = useQuery({
     query: THREADS_QUERY,
     variables: { sortBy: "LATEST" }

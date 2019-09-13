@@ -3,10 +3,12 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import { useMutation } from "urql";
 import { THREAD_FRAGMENT } from "../fragments";
-import { Button } from "../../../components/Button";
-import { TextField } from "../../../components/TextField";
+import { Button } from "../../../common/Button";
+import { TextField } from "../../../common/TextField";
+import { useScrollToTop } from "../../../common/useScrollToTop";
 
 const CreateThread = () => {
+  useScrollToTop();
   const [title, setTitle] = React.useState("");
   const [text, setText] = React.useState('');
 
