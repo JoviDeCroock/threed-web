@@ -19,11 +19,11 @@ const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, created
         Created by: {createdBy.username} - {timeDifferenceForDate(createdAt)}
       </CreatedBy>
       <TextGroup>
-        <button disabled={result.fetching} onClick={() => like({ id })}>
+        <Button disabled={result.fetching} onClick={() => like({ id })}>
           <span role="img" aria-label="Like thread">
             👍
           </span>
-        </button>
+        </Button>
         <Likes>{likesNumber} likes</Likes>
         <Replies to={`/threads/${id}`}>{repliesNumber} replies</Replies>
       </TextGroup>
@@ -32,7 +32,9 @@ const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, created
 }
 
 const Wrapper = styled.div`
+  border-bottom: 1px solid black;
   margin-bottom: 12px;
+  padding: 16px;
 `;
 
 const Title = styled.h3`
@@ -61,6 +63,13 @@ const Replies = styled(Link)`
   font-size: 12px;
   margin-bottom: 2px;
   margin-top: 0;
+`;
+
+const Button = styled.button`
+  transition: background-color 0.33s;
+  &:hover {
+    background-color: #f6f6bf;
+  }
 `;
 
 const TextGroup = styled.div`
