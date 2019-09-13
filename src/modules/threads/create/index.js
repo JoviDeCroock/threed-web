@@ -21,32 +21,41 @@ const CreateThread = () => {
   }, [title, text, createThread]);
 
   return (
-    <Wrapper onSubmit={onSubmit}>
-      <TextField
-        disabled={result.fetching}
-        type="text"
-        name="title"
-        placeholder="title"
-        label="title"
-        value={title}
-        onChange={e => setTitle(e.currentTarget.value)}
-      />
-      <TextField
-        cols="3"
-        disabled={result.fetching}
-        type="multiline"
-        name="text"
-        label="text"
-        placeholder="insert your text"
-        value={text}
-        onChange={e => setText(e.currentTarget.value)}
-      />
-      <StyledButton type="submit">Create</StyledButton>
+    <Wrapper>
+      <Form onSubmit={onSubmit}>
+        <TextField
+          disabled={result.fetching}
+          type="text"
+          name="title"
+          placeholder="title"
+          label="title"
+          value={title}
+          onChange={e => setTitle(e.currentTarget.value)}
+        />
+        <TextField
+          cols="3"
+          disabled={result.fetching}
+          type="multiline"
+          name="text"
+          label="text"
+          placeholder="insert your text"
+          value={text}
+          onChange={e => setText(e.currentTarget.value)}
+        />
+        <StyledButton type="submit">Create</StyledButton>
+      </Form>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.form`
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+`;
+
+const Form = styled.form`
+  align-items: center;
   display: flex;
   flex-direction: column;
   width: min-content;
@@ -54,7 +63,7 @@ const Wrapper = styled.form`
 
 const StyledButton = styled(Button)`
   align-self: flex-end;
-  width: 50px;
+  width: 75px;
 `;
 
 const CREATE_THREAD_MUTATION = gql`
