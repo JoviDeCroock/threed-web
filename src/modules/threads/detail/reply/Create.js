@@ -23,7 +23,8 @@ const CreateReply = ({ threadId }) => {
       <TextField
         name="text"
         placeholder="text"
-        label="Create a reply"
+        label="Reply"
+        type="multiline"
         disabled={result.fetching}
         onChange={e => setText(e.currentTarget.value)}
         value={text}
@@ -36,6 +37,7 @@ const CreateReply = ({ threadId }) => {
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  padding: 16px;
   width: min-content;
 `;
 

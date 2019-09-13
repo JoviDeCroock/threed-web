@@ -22,6 +22,7 @@ const ThreadDetail = ({ threadId }) => {
         <p>{data.thread.text}</p>
       </HeaderContainer>
       <Replies>
+        <h4>Replies:</h4>
         {data.thread.replies.map(reply => (
           <Reply key={reply.id} {...reply} />
         ))}
@@ -52,10 +53,19 @@ const Wrapper = styled.div`
 const HeaderContainer = styled.div`
   background: white;
   border: 1px solid black;
+  padding: 16px;
+  > h3 {
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+  > p {
+    margin: 0;
+  }
 `;
 
 const Replies = styled.div`
-
+  display: flex;
+  flex-direction: column;
 `;
 
 export default ThreadDetail;
