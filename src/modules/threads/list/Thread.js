@@ -71,6 +71,7 @@ const LIKE_THREAD_MUTATION = `
   mutation($id: ID!) {
     likeThread(threadId: $id) {
       id
+      hasUserLiked
       likesNumber
     }
   }

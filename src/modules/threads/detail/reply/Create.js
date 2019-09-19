@@ -51,6 +51,7 @@ const CREATE_REPLY_MUTATION = gql`
       ...ReplyFragment
     }
   }
+
   ${REPLY_FRAGMENT}
 `;
 

@@ -42,14 +42,18 @@ const THREADS_QUERY = gql`
 const cache = cacheExchange({
   optimistic: {
     likeReply: (args, cache) => {
+      const id = args.replyId;
       const me = cache.readQuery({ query: ME_QUERY });
-      if (me && me.me !== null) {
+      const hasUserLiked = cache.resolve({ __typename: "Reply", id }, "hasUserLiked");
+
+      if (me && me.me !== null && !hasUserLiked) {
         return {
           __typename: "Reply",
           id: args.replyId,
+          hasUserLiked: true,
           likesNumber:
             cache.resolve(
-              { __typename: "Reply", id: args.replyId },
+              { __typename: "Reply", id },
               "likesNumber"
             ) + 1
         };
@@ -58,11 +62,15 @@ const cache = cacheExchange({
       }
     },
     likeThread: (args, cache) => {
+      const id = args.threadId;
       const me = cache.readQuery({ query: ME_QUERY });
-      if (me && me.me !== null) {
+      const hasUserLiked = cache.resolve({ __typename: "Thread", id }, "hasUserLiked");
+
+      if (me && me.me !== null && !hasUserLiked) {
         return {
           __typename: "Thread",
           id: args.threadId,
+          hasUserLiked: true,
           likesNumber:
             cache.resolve(
               { __typename: "Thread", id: args.threadId },
@@ -184,29 +192,37 @@ const cache = cacheExchange({
         }
       },
       newThreadLike: (result, args, cache) => {
-        const fragment = gql`
-          fragment _ on Thread {
-            id
-            likesNumber
+        const me = cache.readQuery({ query: ME_QUERY });
+        if (!me || me.id !== result.newReplyLike.createdBy.id) {
+          const fragment = gql`
+            fragment _ on Thread {
+              id
+              likesNumber
+            }
+          `;
+
+          const data = cache.readFragment(fragment, { id: args.threadId });
+          if (data) {
+            data.likesNumber++;
+            cache.writeFragment(fragment, data);
           }
-        `;
-        const data = cache.readFragment(fragment, { id: args.threadId });
-        if (data) {
-          data.likesNumber++;
-          cache.writeFragment(fragment, data);
         }
       },
       newReplyLike: (result, args, cache) => {
-        const fragment = gql`
-          fragment _ on Reply {
-            id
-            likesNumber
+        const me = cache.readQuery({ query: ME_QUERY });
+        if (!me || me.id !== result.newReplyLike.createdBy.id) {
+          const fragment = gql`
+            fragment _ on Reply {
+              id
+              likesNumber
+            }
+          `;
+
+          const data = cache.readFragment(fragment, { id: args.replyId });
+          if (data) {
+            data.likesNumber++;
+            cache.writeFragment(fragment, data);
           }
-        `;
-        const data = cache.readFragment(fragment, { id: args.replyId });
-        if (data) {
-          data.likesNumber++;
-          cache.writeFragment(fragment, data);
         }
       }
     }

@@ -10,6 +10,7 @@ export const THREAD_FRAGMENT = gql`
       username
     }
     createdAt
+    hasUserLiked
     likesNumber
     repliesNumber
   }
@@ -24,6 +25,7 @@ export const REPLY_FRAGMENT = gql`
       username
     }
     createdAt
+    hasUserLiked
     likesNumber
   }
 `;
