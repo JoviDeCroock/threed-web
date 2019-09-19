@@ -1257,6 +1257,13 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
+"@urql/devtools@^0.1.0-beta.1":
+  version "0.1.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@urql/devtools/-/devtools-0.1.0-beta.1.tgz#327d662b37295a386dcccef4b31931363d4cce82"
+  integrity sha512-IWdspcEnkJbXH8eLkwvBUmlR2PfepmPdrJqgDaq2rPwN1aKIldx5IcYYvFCVIzdRA8QkDRx++OhY5CSD/HhBeQ==
+  dependencies:
+    wonka "^3.2.1"
+
 "@urql/exchange-graphcache@^1.0.0-rc.10":
   version "1.0.0-rc.10"
   resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-1.0.0-rc.10.tgz#92aa7340e7b48fa65911a4c3b584264df96b2769"
