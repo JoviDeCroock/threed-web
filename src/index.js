@@ -1,175 +1,158 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import gql from 'graphql-tag';
+
 import { createClient, dedupExchange, fetchExchange, Provider, subscriptionExchange } from 'urql';
 import { cacheExchange } from '@urql/exchange-graphcache';
 import { SubscriptionClient } from "subscriptions-transport-ws";
+
 import App from './App';
+import { GlobalStyles } from './layout/GlobalStyles';
 import { getToken, setToken } from './utils/auth';
 import { ME_QUERY } from './modules/auth/meQuery';
-import gql from 'graphql-tag';
 import { THREAD_FRAGMENT } from './modules/threads/fragments';
-import { GlobalStyles } from './layout/GlobalStyles';
 
-const updateAuth = (cache, { user, token }) => {
-  setToken(token);
-  cache.updateQuery({ query: ME_QUERY }, () => ({ me: user }));
-}
-
-const subscriptionClient = new SubscriptionClient("ws://localhost:3001/subscriptions", {
-  reconnect: true,
-  connectionParams: {
-    authToken: getToken()
-  }
-});
-
-// TODO: this is temp because of a bug in graphcache convert back to fragment when new version is released
-const listUpdateQuery = {
-  query: gql`
-    query($sortBy: SortBy!, $skip: Int, $limit: Int) {
-      threads(sortBy: $sortBy, limit: $limit, skip: $skip) {
-        ...ThreadFragment
-      }
+const subscriptionClient = new SubscriptionClient(
+  'wss://threed-test-api.herokuapp.com/subscriptions',
+  {
+    reconnect: true,
+    connectionParams: {
+      authToken: getToken()
     }
-    ${THREAD_FRAGMENT}
-  `,
-  variables: { sortBy: "LATEST" }
-};
+  }
+);
+
+const THREADS_QUERY = gql`
+  query($sortBy: SortBy!) {
+    threads(sortBy: $sortBy, limit: null, skip: null) {
+      ...ThreadFragment
+    }
+  }
+
+  ${THREAD_FRAGMENT}
+`;
 
 const cache = cacheExchange({
   optimistic: {
     likeReply: (args, cache) => {
-      const likes = cache.getRecord(`Thread:${args.replyId}.likesNumber`);
-      return {
-        id: args.replyId,
-        likesNumber: likes + 1,
-        __typename: "Reply"
-      };
+      const me = cache.readQuery({ query: ME_QUERY });
+      if (me && me.me !== null) {
+        return {
+          __typename: 'Reply',
+          id: args.replyId,
+          likesNumber: cache.resolve({ __typename: 'Reply', id: args.replyId }, 'likesNumber')
+            + 1,
+        };
+      } else {
+        return null;
+      }
     },
     likeThread: (args, cache) => {
-      // TODO TEMPFIX:
-      const likes = cache.getRecord(`Thread:${args.threadId}.likesNumber`);
-      // GOOD ONE: needs release
-      // const thread = cache.readQuery({
-      //   query: gql`
-      //     query ($id: ID!) {
-      //       thread(id: $id) {
-      //         id
-      //         likesNumber
-      //         __typename
-      //       }
-      //     }
-      //   `
-      // });
-      // console.log(thread);
-      return {
-        id: args.threadId,
-        likesNumber: likes + 1,
-        __typename: 'Thread'
+      const me = cache.readQuery({ query: ME_QUERY });
+      if (me && me.me !== null) {
+        return {
+          __typename: 'Thread',
+          id: args.threadId,
+          likesNumber: cache.resolve({ __typename: 'Thread', id: args.threadId }, 'likesNumber')
+            + 1,
+        };
+      } else {
+        return null;
       }
     },
   },
   updates: {
     Mutation: {
+      signin: (result, _args, cache) => {
+        if (result.signin) {
+          setToken(result.signin.token);
+          cache.updateQuery({ query: ME_QUERY }, () => ({ me: result.signin.user }));
+        }
+      },
+      signup: (result, _args, cache) => {
+        if (result.signup) {
+          setToken(result.signup.token);
+          cache.updateQuery({ query: ME_QUERY }, () => ({ me: result.signup.user }));
+        }
+      },
       createThread: (result, _args, cache) => {
-        cache.updateQuery(listUpdateQuery,
+        cache.updateQuery(
+          { query: THREADS_QUERY, variables: { sortBy: 'LATEST' } },
           data => {
-            // TODO: maybe a bit too naive, should we cut the last element out as well?
-            data.threads.unshift(result.createThread);
+            if (data) {
+              const newThread = result.createThread;
+              const hasThread = data.threads.some(x => x && x.id === newThread.id);
+              if (!hasThread) data.threads.unshift(newThread);
+            }
+
             return data;
           }
         );
       },
-      signin: (result, _args, cache) => {
-        updateAuth(cache, result.signin);
-      },
-      signup: (result, _args, cache) => {
-        updateAuth(cache, result.signup);
-      },
-      reply: (result, { threadId }, cache) => {
-      //   const fragment = gql`
-      //     fragment _thread on Thread {
-      //       repliesNumber
-      //       replies {
-      //         id
-      //       }
-      //     }
-      //   `;
-      //   const readFragmentData = cache.readFragment(fragment, threadId);
-      //   if (!readFragmentData.replies.find(({ id }) => id === result.reply.id)) {
-      //     readFragmentData.replies.unshift(result.reply);
-      //     readFragmentData.repliesNumber += 1;
-      //     cache.writeFragment(fragment, readFragmentData)
-      //   }
+      reply: (result, args, cache) => {
+        const fragment = gql`fragment _ on Thread { id, repliesNumber, replies { id } }`;
+        const data = cache.readFragment(fragment, { id: args.threadId });
+        if (data) {
+          const newReply = result.reply;
+          const hasReply = data.replies.some(x => x && x.id === newReply.id);
+          if (!hasReply) {
+            data.replies.unshift(newReply);
+            data.repliesNumber++;
+            cache.writeFragment(fragment, data);
+          }
+        }
       }
     },
     Subscription: {
-      newThread: (result, args, cache) => {
-        cache.updateQuery(listUpdateQuery,
+      newThread: (result, _args, cache) => {
+        cache.updateQuery(
+          { query: THREADS_QUERY, variables: { sortBy: 'LATEST' } },
           data => {
-            if (data && data.threads && !data.threads.find(({ id }) => id === data.newThread.id)) {
-              data.threads.unshift(result.newThread);
+            if (data) {
+              const newThread = result.newThread;
+              const hasThread = data.threads.some(x => x && x.id === newThread.id);
+              if (!hasThread) data.threads.unshift(newThread);
             }
+
             return data;
-          })
-      },
-      newThreadLike: (result, { threadId }, cache) => {
-        // TODO: update likesNumber (temp) and add to thread.likes[]
-        // TODO: should also check if we already have it.
-        //   const fragment = gql`
-        //     fragment __thread on Thread {
-        //       likesNumber
-        //       likes {
-        //         id
-        //       }
-        //     }
-        //   `;
-        //   const readFragmentData = cache.readFragment(fragment, threadId);
-        //   if (!readFragmentData.likes.find(({ id }) => id === result.newThreadLike.id)) {
-        //     readFragmentData.likes.unshift(result.newThreadLike);
-        //     readFragmentData.likesNumber += 1;
-        //     cache.writeFragment(fragment, readFragmentData)
-        //   }
-        // }
+          }
+        );
       },
       newReply: (result, args, cache) => {
-        //   const fragment = gql`
-        //     fragment _thread on Thread {
-        //       repliesNumber
-        //       replies {
-        //         id
-        //       }
-        //     }
-        //   `;
-        //   const readFragmentData = cache.readFragment(fragment, threadId);
-        //   if (!readFragmentData.replies.find(({ id }) => id === result.newReply.id)) {
-        //     readFragmentData.replies.unshift(result.reply);
-        //     readFragmentData.repliesNumber += 1;
-        //     cache.writeFragment(fragment, readFragmentData)
-        //   }
-        // }
+        const fragment = gql`fragment _ on Thread { id, repliesNumber, replies { id } }`;
+        const data = cache.readFragment(fragment, args.threadId);
+        if (data) {
+          const newReply = result.newReply;
+          const hasReply = data.replies.some(x => x && x.id === newReply.id);
+          if (!hasReply) {
+            data.replies.unshift(newReply);
+            data.repliesNumber++;
+            cache.writeFragment(fragment, data);
+          }
+        }
+      },
+      newThreadLike: (result, args, cache) => {
+        const fragment = gql`fragment _ on Thread { id, likesNumber }`;
+        const data = cache.readFragment(fragment, args.threadId);
+        if (data) {
+          data.likesNumber++;
+          cache.writeFragment(fragment, data);
+        }
       },
       newReplyLike: (result, args, cache) => {
-        //   const fragment = gql`
-        //     fragment _reply on Reply {
-        //       likesNumber
-        //       likes {
-        //         id
-        //       }
-        //     }
-        //   `;
-        //   const readFragmentData = cache.readFragment(fragment, threadId);
-        //   if (!readFragmentData.likes.find(({ id }) => id === result.newReplyLike.id)) {
-        //     readFragmentData.likes.unshift(result.reply);
-        //     readFragmentData.likesNumber += 1;
-        //     cache.writeFragment(fragment, readFragmentData)
-        //   }
-        // }
+        const fragment = gql`fragment _ on Reply { id, likesNumber }`;
+        const data = cache.readFragment(fragment, args.replyId);
+        if (data) {
+          data.likesNumber++;
+          cache.writeFragment(fragment, data);
+        }
       }
     }
   }
 });
 
 const client = createClient({
+  url: 'https://threed-test-api.herokuapp.com/graphql',
   exchanges: [
     dedupExchange,
     cache,
@@ -183,8 +166,7 @@ const client = createClient({
     return {
       headers: { authorization: token ? `Bearer ${token}` : "" }
     };
-  },
-  url: "http://localhost:3001/graphql"
+  }
 });
 
 ReactDOM.render(
