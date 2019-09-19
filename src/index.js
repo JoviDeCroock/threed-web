@@ -120,7 +120,7 @@ const cache = cacheExchange({
       },
       newReply: (result, args, cache) => {
         const fragment = gql`fragment _ on Thread { id, repliesNumber, replies { id } }`;
-        const data = cache.readFragment(fragment, args.threadId);
+        const data = cache.readFragment(fragment, { id: args.threadId });
         if (data) {
           const newReply = result.newReply;
           const hasReply = data.replies.some(x => x && x.id === newReply.id);
@@ -133,7 +133,8 @@ const cache = cacheExchange({
       },
       newThreadLike: (result, args, cache) => {
         const fragment = gql`fragment _ on Thread { id, likesNumber }`;
-        const data = cache.readFragment(fragment, args.threadId);
+        const data = cache.readFragment(fragment, { id: args.threadId });
+        console.log(data, args);
         if (data) {
           data.likesNumber++;
           cache.writeFragment(fragment, data);
@@ -141,7 +142,7 @@ const cache = cacheExchange({
       },
       newReplyLike: (result, args, cache) => {
         const fragment = gql`fragment _ on Reply { id, likesNumber }`;
-        const data = cache.readFragment(fragment, args.replyId);
+        const data = cache.readFragment(fragment, { id: args.replyId });
         if (data) {
           data.likesNumber++;
           cache.writeFragment(fragment, data);
