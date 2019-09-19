@@ -118,23 +118,31 @@ const cache = cacheExchange({
           }
         );
       },
-      newReply: (result, args, cache) => {
-        const fragment = gql`fragment _ on Thread { id, repliesNumber, replies { id } }`;
-        const data = cache.readFragment(fragment, { id: args.threadId });
-        if (data) {
+      newReply: (result, { threadId: id }, cache) => {
+        const numberFrag = gql`fragment _ on Thread { id, repliesNumber }`;
+        const numberData = cache.readFragment(numberFrag, { id });
+        if (numberData) {
+          numberData.repliesNumber++;
+          cache.writeFragment(numberFrag, numberData);
+        }
+
+        const repliesFrag = gql`fragment _ on Thread { id, replies { id } }`;
+        const repliesData = cache.readFragment(repliesFrag, { id });
+        if (repliesData) {
           const newReply = result.newReply;
-          const hasReply = data.replies.some(x => x && x.id === newReply.id);
+          const hasReply = repliesData.replies.some(x => x && x.id === newReply.id);
           if (!hasReply) {
-            data.replies.unshift(newReply);
-            data.repliesNumber++;
-            cache.writeFragment(fragment, data);
+            repliesData.replies.unshift(newReply);
+            cache.writeFragment(repliesData, repliesData);
+          } else if (numberData) {
+            numberData.repliesNumber--;
+            cache.writeFragment(numberFrag, numberData);
           }
         }
       },
       newThreadLike: (result, args, cache) => {
         const fragment = gql`fragment _ on Thread { id, likesNumber }`;
         const data = cache.readFragment(fragment, { id: args.threadId });
-        console.log(data, args);
         if (data) {
           data.likesNumber++;
           cache.writeFragment(fragment, data);
