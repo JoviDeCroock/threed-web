@@ -133,7 +133,7 @@ const cache = cacheExchange({
           const hasReply = repliesData.replies.some(x => x && x.id === newReply.id);
           if (!hasReply) {
             repliesData.replies.unshift(newReply);
-            cache.writeFragment(repliesData, repliesData);
+            cache.writeFragment(repliesFrag, repliesData);
           } else if (numberData) {
             numberData.repliesNumber--;
             cache.writeFragment(numberFrag, numberData);
