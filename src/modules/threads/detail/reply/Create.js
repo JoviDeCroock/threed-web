@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useMutation } from 'urql';
-import { REPLY_FRAGMENT } from '../../fragments';
 import gql from 'graphql-tag';
 import { Button } from '../../../../common/Button';
 import { TextField } from '../../../../common/TextField';
@@ -48,11 +47,10 @@ const StyledButton = styled(Button)`
 const CREATE_REPLY_MUTATION = gql`
   mutation($threadId: ID!, $text: String!) {
     reply(input: { threadId: $threadId, text: $text }) {
-      ...ReplyFragment
+      id
+      likesNumber
     }
   }
-
-  ${REPLY_FRAGMENT}
 `;
 
 export default CreateReply;
