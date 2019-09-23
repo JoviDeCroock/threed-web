@@ -5,6 +5,7 @@ import { Link } from "@reach/router";
 import { timeDifferenceForDate } from '../../../utils/timeDiff';
 import { useNewLikes, useNewReplies } from '../common';
 import { LikeButton } from '../common/LikeButton';
+import { getToken } from '../../../utils/auth';
 
 const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, createdAt }) => {
   const [result, like] = useMutation(LIKE_THREAD_MUTATION);
@@ -20,7 +21,7 @@ const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, created
         Created by: {createdBy.username} - {timeDifferenceForDate(createdAt)}
       </CreatedBy>
       <TextGroup>
-        <LikeButton disabled={result.fetching} onClick={() => like({ id })} />
+        <LikeButton disabled={result.fetching || !getToken()} onClick={() => like({ id })} />
         <Likes>{likesNumber} likes</Likes>
         <Replies to={`/threads/${id}`}>{repliesNumber} replies</Replies>
       </TextGroup>

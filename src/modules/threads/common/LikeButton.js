@@ -14,4 +14,8 @@ const Button = styled.button`
   &:hover {
     background-color: #f6f6bf;
   }
+
+  &:disabled {
+    cursor: default;
+  }
 `;

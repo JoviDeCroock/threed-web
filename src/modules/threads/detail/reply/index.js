@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import { timeDifferenceForDate } from "../../../../utils/timeDiff";
 import { LikeButton } from "../../common/LikeButton";
 import { REPLY_FRAGMENT } from "../../fragments";
+import { getToken } from "../../../../utils/auth";
 
 const Reply = ({ text, id, createdBy, createdAt, likesNumber }) => {
   useSubscription({ query: NEW_REPLY_LIKE, variables: { id } });
@@ -17,7 +18,10 @@ const Reply = ({ text, id, createdBy, createdAt, likesNumber }) => {
         <Text>{text}</Text>
       </Body>
       <Footer>
-        <LikeButton disabled={result.fetching} onClick={() => like({ id })} />
+        <LikeButton
+          disabled={result.fetching || !getToken()}
+          onClick={() => like({ id })}
+        />
         {likesNumber} -&nbsp; created by {createdBy.username} -&nbsp;
         {timeDifferenceForDate(createdAt)}
       </Footer>
