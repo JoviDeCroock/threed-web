@@ -193,7 +193,7 @@ const cache = cacheExchange({
       },
       newThreadLike: (result, args, cache) => {
         const me = cache.readQuery({ query: ME_QUERY });
-        if (!me || me.id !== result.newReplyLike.createdBy.id) {
+        if (!me || me.id !== result.newThreadLike.createdBy.id) {
           const fragment = gql`
             fragment _ on Thread {
               id
