@@ -1264,11 +1264,12 @@
   dependencies:
     wonka "^3.2.1"
 
-"@urql/exchange-graphcache@1.2.2-fast":
-  version "1.2.2-fast"
-  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-1.2.2-fast.tgz#6231c980271ec8f88242a9483c0c207f792e414e"
-  integrity sha512-VDATQBrzwxFjaGlJOIVC0VrJr8dURXKTUqz8Qh7wNxmjjDbUO7q2yc5VYoHoXwonHAK0pnP3BrBBhBIMuY2iTw==
+"@urql/exchange-graphcache@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-1.2.1.tgz#5f87c3f78ef718f8e6777e882d690f2d69397d3d"
+  integrity sha512-NrEoE0Pqoe81d8WfY7hfgBhQNcXtud4wLPhc/NOdvaNAa+bgMO3HmdN+rdQBumZTHUTrKt7aeKvuLFv1Yzl0Bg==
   dependencies:
+    pessimism "^1.1.4"
     wonka "^3.2.1"
 
 "@webassemblyjs/ast@1.8.5":
@@ -7025,6 +7026,11 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
+
+pessimism@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/pessimism/-/pessimism-1.1.4.tgz#9a83bde165a773bb65a0e77551a9960a28df0741"
+  integrity sha512-MZypBlwcfyd+v53cUeY4188rX9PPZYe7UfdBxenfzVaeW64UX4yGk+xNUp6FTBeqQfRw1m9z2eLFGHQrZp0gJw==
 
 pify@^2.0.0:
   version "2.3.0"
