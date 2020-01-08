@@ -1,26 +1,29 @@
-import React from "react";
-import gql from "graphql-tag";
-import styled from "styled-components";
-import { useMutation } from "urql";
-import { THREAD_FRAGMENT } from "../fragments";
-import { Button } from "../../../common/Button";
-import { TextField } from "../../../common/TextField";
-import { useScrollToTop } from "../../../common/useScrollToTop";
+import React from 'react';
+import gql from 'graphql-tag';
+import styled from 'styled-components';
+import { useMutation } from 'urql';
+import { THREAD_FRAGMENT } from '../fragments';
+import { Button } from '../../../common/Button';
+import { TextField } from '../../../common/TextField';
+import { useScrollToTop } from '../../../common/useScrollToTop';
 
 const CreateThread = () => {
   useScrollToTop();
-  const [title, setTitle] = React.useState("");
+  const [title, setTitle] = React.useState('');
   const [text, setText] = React.useState('');
 
   const [result, createThread] = useMutation(CREATE_THREAD_MUTATION);
 
-  const onSubmit = React.useCallback(e => {
-    e.preventDefault();
-    createThread({ title, text }).then(() => {
-      setText('');
-      setTitle('');
-    });
-  }, [title, text, createThread]);
+  const onSubmit = React.useCallback(
+    e => {
+      e.preventDefault();
+      createThread({ title, text }).then(() => {
+        setText('');
+        setTitle('');
+      });
+    },
+    [title, text, createThread]
+  );
 
   return (
     <Wrapper>
@@ -71,10 +74,9 @@ const StyledButton = styled(Button)`
 const CREATE_THREAD_MUTATION = gql`
   mutation($title: String!, $text: String!) {
     createThread(input: { title: $title, text: $text }) {
-      ...ThreadFragment
+      node @populate
     }
   }
-  ${THREAD_FRAGMENT}
 `;
 
 export default CreateThread;

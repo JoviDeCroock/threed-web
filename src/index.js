@@ -1,26 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import gql from "graphql-tag";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import gql from 'graphql-tag';
 
-import {
-  createClient,
-  dedupExchange,
-  fetchExchange,
-  Provider,
-  subscriptionExchange
-} from "urql";
-import { cacheExchange } from "@urql/exchange-graphcache";
-import { SubscriptionClient } from "subscriptions-transport-ws";
-import { devtoolsExchange } from "@urql/devtools";
+import { createClient, dedupExchange, fetchExchange, Provider, subscriptionExchange } from 'urql';
+import { cacheExchange, populateExchange } from '@urql/exchange-graphcache';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { devtoolsExchange } from '@urql/devtools';
 
-import App from "./App";
-import { GlobalStyles } from "./layout/GlobalStyles";
-import { getToken, setToken } from "./utils/auth";
-import { ME_QUERY } from "./modules/auth/meQuery";
-import { THREAD_FRAGMENT } from "./modules/threads/fragments";
+import App from './App';
+import { GlobalStyles } from './layout/GlobalStyles';
+import { getToken, setToken } from './utils/auth';
+import { ME_QUERY } from './modules/auth/meQuery';
+import { THREAD_FRAGMENT } from './modules/threads/fragments';
+import schema from './build/schema.json';
 
 const subscriptionClient = new SubscriptionClient(
-  "wss://threed-test-api.herokuapp.com/subscriptions",
+  'wss://threed-test-api.herokuapp.com/subscriptions',
   {
     reconnect: true,
     connectionParams: {
@@ -44,18 +39,14 @@ const cache = cacheExchange({
     likeReply: (args, cache) => {
       const id = args.replyId;
       const me = cache.readQuery({ query: ME_QUERY });
-      const hasUserLiked = cache.resolve({ __typename: "Reply", id }, "hasUserLiked");
+      const hasUserLiked = cache.resolve({ __typename: 'Reply', id }, 'hasUserLiked');
 
       if (me && me.me !== null && !hasUserLiked) {
         return {
-          __typename: "Reply",
+          __typename: 'Reply',
           id: args.replyId,
           hasUserLiked: true,
-          likesNumber:
-            cache.resolve(
-              { __typename: "Reply", id },
-              "likesNumber"
-            ) + 1
+          likesNumber: cache.resolve({ __typename: 'Reply', id }, 'likesNumber') + 1
         };
       } else {
         return null;
@@ -64,18 +55,14 @@ const cache = cacheExchange({
     likeThread: (args, cache) => {
       const id = args.threadId;
       const me = cache.readQuery({ query: ME_QUERY });
-      const hasUserLiked = cache.resolve({ __typename: "Thread", id }, "hasUserLiked");
+      const hasUserLiked = cache.resolve({ __typename: 'Thread', id }, 'hasUserLiked');
 
       if (me && me.me !== null && !hasUserLiked) {
         return {
-          __typename: "Thread",
+          __typename: 'Thread',
           id: args.threadId,
           hasUserLiked: true,
-          likesNumber:
-            cache.resolve(
-              { __typename: "Thread", id: args.threadId },
-              "likesNumber"
-            ) + 1
+          likesNumber: cache.resolve({ __typename: 'Thread', id: args.threadId }, 'likesNumber') + 1
         };
       } else {
         return null;
@@ -101,20 +88,15 @@ const cache = cacheExchange({
         }
       },
       createThread: (result, _args, cache) => {
-        cache.updateQuery(
-          { query: THREADS_QUERY, variables: { sortBy: "LATEST" } },
-          data => {
-            if (data) {
-              const newThread = result.createThread;
-              const hasThread = data.threads.some(
-                x => x && x.id === newThread.id
-              );
-              if (!hasThread) data.threads.unshift(newThread);
-            }
-
-            return data;
+        cache.updateQuery({ query: THREADS_QUERY, variables: { sortBy: 'LATEST' } }, data => {
+          if (data) {
+            const newThread = result.createThread;
+            const hasThread = data.threads.some(x => x && x.id === newThread.id);
+            if (!hasThread) data.threads.unshift(newThread);
           }
-        );
+
+          return data;
+        });
       },
       reply: (result, args, cache) => {
         const fragment = gql`
@@ -140,20 +122,15 @@ const cache = cacheExchange({
     },
     Subscription: {
       newThread: (result, _args, cache) => {
-        cache.updateQuery(
-          { query: THREADS_QUERY, variables: { sortBy: "LATEST" } },
-          data => {
-            if (data) {
-              const newThread = result.newThread;
-              const hasThread = data.threads.some(
-                x => x && x.id === newThread.id
-              );
-              if (!hasThread) data.threads.unshift(newThread);
-            }
-
-            return data;
+        cache.updateQuery({ query: THREADS_QUERY, variables: { sortBy: 'LATEST' } }, data => {
+          if (data) {
+            const newThread = result.newThread;
+            const hasThread = data.threads.some(x => x && x.id === newThread.id);
+            if (!hasThread) data.threads.unshift(newThread);
           }
-        );
+
+          return data;
+        });
       },
       newReply: (result, { threadId: id }, cache) => {
         const numberFrag = gql`
@@ -179,9 +156,7 @@ const cache = cacheExchange({
         const repliesData = cache.readFragment(repliesFrag, { id });
         if (repliesData) {
           const newReply = result.newReply;
-          const hasReply = repliesData.replies.some(
-            x => x && x.id === newReply.id
-          );
+          const hasReply = repliesData.replies.some(x => x && x.id === newReply.id);
           if (!hasReply) {
             repliesData.replies.unshift(newReply);
             cache.writeFragment(repliesFrag, repliesData);
@@ -230,9 +205,11 @@ const cache = cacheExchange({
 });
 
 const client = createClient({
-  url: "https://threed-test-api.herokuapp.com/graphql",
+  url: 'http://localhost:3000/graphql',
   exchanges: [
     dedupExchange,
+    // devtoolsExchange,
+    populateExchange({ schema }),
     devtoolsExchange,
     cache,
     fetchExchange,
@@ -243,7 +220,7 @@ const client = createClient({
   fetchOptions: () => {
     const token = getToken();
     return {
-      headers: { authorization: token ? `Bearer ${token}` : "" }
+      headers: { authorization: token ? `Bearer ${token}` : '' }
     };
   }
 });
@@ -253,5 +230,5 @@ ReactDOM.render(
     <GlobalStyles />
     <App />
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

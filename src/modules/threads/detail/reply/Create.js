@@ -10,12 +10,15 @@ const CreateReply = ({ threadId }) => {
 
   const [text, setText] = React.useState('');
 
-  const onSubmit = React.useCallback(e => {
-    e.preventDefault();
-    reply({ threadId, text }).then(() => {
-      setText('');
-    });
-  }, [text, reply, threadId]);
+  const onSubmit = React.useCallback(
+    e => {
+      e.preventDefault();
+      reply({ threadId, text }).then(() => {
+        setText('');
+      });
+    },
+    [text, reply, threadId]
+  );
 
   return (
     <Form onSubmit={onSubmit}>
@@ -31,7 +34,7 @@ const CreateReply = ({ threadId }) => {
       <StyledButton type="submit">Submit</StyledButton>
     </Form>
   );
-}
+};
 
 const Form = styled.form`
   display: flex;
@@ -47,8 +50,10 @@ const StyledButton = styled(Button)`
 const CREATE_REPLY_MUTATION = gql`
   mutation($threadId: ID!, $text: String!) {
     reply(input: { threadId: $threadId, text: $text }) {
-      id
-      likesNumber
+      node @populate
+      viewer {
+        thread(id: $threadId) @populate
+      }
     }
   }
 `;

@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useMutation } from 'urql';
-import { Link } from "@reach/router";
+import { Link } from '@reach/router';
 import { timeDifferenceForDate } from '../../../utils/timeDiff';
 import { useNewLikes, useNewReplies } from '../common';
 import { LikeButton } from '../common/LikeButton';
 import { getToken } from '../../../utils/auth';
 
-const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, createdAt }) => {
+const Thread = ({ title, text, createdBy, likesNumber, repliesNumber, id, createdAt }) => {
   const [result, like] = useMutation(LIKE_THREAD_MUTATION);
 
   useNewLikes(id);
@@ -27,7 +27,7 @@ const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, created
       </TextGroup>
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   border-bottom: 1px solid black;
@@ -71,11 +71,9 @@ const TextGroup = styled.div`
 const LIKE_THREAD_MUTATION = `
   mutation($id: ID!) {
     likeThread(threadId: $id) {
-      id
-      hasUserLiked
-      likesNumber
+      node @populate
     }
   }
 `;
 
-export default Thead;
+export default Thread;

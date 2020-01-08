@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
 import { useSubscription, useMutation } from 'urql';
 import gql from 'graphql-tag';
-import { timeDifferenceForDate } from "../../../../utils/timeDiff";
-import { LikeButton } from "../../common/LikeButton";
-import { REPLY_FRAGMENT } from "../../fragments";
-import { getToken } from "../../../../utils/auth";
+import { timeDifferenceForDate } from '../../../../utils/timeDiff';
+import { LikeButton } from '../../common/LikeButton';
+import { REPLY_FRAGMENT } from '../../fragments';
+import { getToken } from '../../../../utils/auth';
 
 const Reply = ({ text, id, createdBy, createdAt, likesNumber }) => {
   useSubscription({ query: NEW_REPLY_LIKE, variables: { id } });
@@ -18,16 +18,13 @@ const Reply = ({ text, id, createdBy, createdAt, likesNumber }) => {
         <Text>{text}</Text>
       </Body>
       <Footer>
-        <LikeButton
-          disabled={result.fetching || !getToken()}
-          onClick={() => like({ id })}
-        />
+        <LikeButton disabled={result.fetching || !getToken()} onClick={() => like({ id })} />
         {likesNumber} -&nbsp; created by {createdBy.username} -&nbsp;
         {timeDifferenceForDate(createdAt)}
       </Footer>
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   border-bottom: 1px solid black;
@@ -53,16 +50,18 @@ const Text = styled.p`
 `;
 
 const LIKE_REPLY = gql`
-  mutation ($id: ID!) {
-    likeReply (replyId: $id) {
-      ...ReplyFragment
+  mutation($id: ID!) {
+    likeReply(replyId: $id) {
+      node @populate {
+        ...ReplyFragment
+      }
     }
   }
   ${REPLY_FRAGMENT}
 `;
 
 const NEW_REPLY_LIKE = gql`
-  subscription ($id: ID!) {
+  subscription($id: ID!) {
     newReplyLike(replyId: $id) {
       id
       createdBy {

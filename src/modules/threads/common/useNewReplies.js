@@ -1,4 +1,4 @@
-import { useSubscription } from "urql";
+import { useSubscription } from 'urql';
 
 export const useNewReplies = id => {
   return useSubscription({
