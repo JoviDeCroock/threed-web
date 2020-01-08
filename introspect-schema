@@ -1,0 +1,36 @@
+#! /usr/bin/env node
+
+const { introspectionQuery } = require('graphql');
+const fetch = require('node-fetch');
+const fs = require('fs');
+const path = require('path');
+
+let graphqlEndpoint;
+if (process.env.NODE_ENV === 'production') {
+  graphqlEndpoint = 'https://threed-test-api.herokuapp.com/graphql';
+} else {
+  graphqlEndpoint = 'http://localhost:3000/graphql';
+}
+
+(async () => {
+  const res = await fetch(graphqlEndpoint, {
+    method: 'POST',
+    body: JSON.stringify({
+      query: introspectionQuery
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  const { data } = await res.json();
+
+  if (!fs.existsSync(path.resolve(__dirname, './src/build'))) {
+    fs.mkdirSync(path.resolve(__dirname, './src/build'));
+  }
+
+  fs.writeFileSync(
+    path.resolve(__dirname, './src/build/schema.json'),
+    JSON.stringify(data, null, 2)
+  );
+})();
