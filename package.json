@@ -13,7 +13,7 @@
     "react-scripts": "3.3.0",
     "styled-components": "4.4.1",
     "subscriptions-transport-ws": "0.9.16",
-    "urql": "1.7.0"
+    "urql": "https://github.pika.dev/formidablelabs/urql/pr/495"
   },
   "scripts": {
     "start": "react-scripts start",
