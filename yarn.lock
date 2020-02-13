@@ -1364,6 +1364,13 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
+"@urql/core@>=1.9.0", "@urql/core@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@urql/core/-/core-1.9.0.tgz#9317071175a80fe93bee4277a253275ebce781ea"
+  integrity sha512-kP3/mdzwTUv7wR7EJaXxL1dJklHxXhHamc+NbFqhgmJM3y/Wkdm3b4MZ3Gx0HlLlMgo6/i2G0V26sydQdttd6g==
+  dependencies:
+    wonka "^4.0.7"
+
 "@urql/devtools@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@urql/devtools/-/devtools-0.1.0.tgz#68c8edbbea24af7bfd5c1ad280a3d5dc61579276"
@@ -1371,12 +1378,13 @@
   dependencies:
     wonka "^3.2.1"
 
-"@urql/exchange-graphcache@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-2.0.0.tgz#9a52646cbb18ae5d4166f196c398e5be050e0930"
-  integrity sha512-yZQ/oTAlOAd3MgHp1axDeRCzg8Zz8RqgWVAxNmL/myc7we55oTnV7NPygw6V0CGe56PbpCUb4c4iQoqgIswebA==
+"@urql/exchange-graphcache@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-2.1.1.tgz#15df85fa00f43c74250ac8332b982c61e97ca323"
+  integrity sha512-FbloTlK9rSHfEe0jvuOXnAe1hUpdnpgT/fcs8WE3g3ODj2eqiW008hmLJmDoWkE7QI9MFy+y3rSqe0DhzRyKUA==
   dependencies:
-    wonka "^3.2.1"
+    "@urql/core" ">=1.9.0"
+    wonka "^3.2.1 || ^4.0.0"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -8464,11 +8472,6 @@ react-scripts@3.3.0:
   optionalDependencies:
     fsevents "2.1.2"
 
-react-wonka@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-wonka/-/react-wonka-1.0.3.tgz#2d997403be347489e1161cb58d502ac683499847"
-  integrity sha512-7ocCcMnSxc7zD06V6H2Er4PJNbHQL2bityy6aZPrsn2JqJSP4SEkCzdvCk+nQVKDDqO8Lk5L5F9GG7PUB8gGsA==
-
 react@16.12.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
@@ -10055,13 +10058,21 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-urql@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/urql/-/urql-1.7.0.tgz#3b5d53451e9b45163288618f2bad6fe0afc02e0e"
-  integrity sha512-mw9gZhq3u33FzT6nLIQGzTF/cVkl3+pM1Jr2mya9pyTQfRBMugurGpZTyIFZKZQK1zjSnO8LbI2gzelydctq3A==
+urql@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/urql/-/urql-1.9.0.tgz#38a2a5a4c477a34162f00a9a099aa302098f36d1"
+  integrity sha512-A9mJEa5QDUB6+TWDk55UCU7QziwmN5BPBaQsT7LIOtMBNOISy5GAHqPoWqQAFueNoXk8r4rNLPNtkdLnZbES1Q==
   dependencies:
-    react-wonka "^1.0.3"
-    wonka "^3.2.1"
+    "@urql/core" "^1.9.0"
+    use-subscription "^1.3.0"
+    wonka "^4.0.7"
+
+use-subscription@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/use-subscription/-/use-subscription-1.3.0.tgz#3df13a798e826c8d462899423293289a3362e4e6"
+  integrity sha512-buZV7FUtnbOr+65dN7PHK7chHhQGfk/yjgqfpRLoWuHIAc4klAD/rdot2FsPNtFthN1ZydvA8tR/mWBMQ+/fDQ==
+  dependencies:
+    object-assign "^4.1.1"
 
 use@^3.1.0:
   version "3.1.1"
@@ -10375,6 +10386,11 @@ wonka@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/wonka/-/wonka-3.2.1.tgz#f66123fabbb260f23a4e89f1526317169203e258"
   integrity sha512-LpquZ9PJtYJ31AlMPp5tEba1y+S+wUmY7OyFLGZCmGSNO1ZOTTZGp/HbieFzP5fVJ9fWXCus3ecgDjwAssHSGg==
+
+"wonka@^3.2.1 || ^4.0.0", wonka@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/wonka/-/wonka-4.0.7.tgz#b4934685bd2449367bd72ce7770bfe3e6cc8a68b"
+  integrity sha512-Uhyl2cgWCUksYtU0Jt8MSzKUqK4BVUrewWxnn1YlKL3Zco4sDcCUDkbgH0i762HJs1rtsq03cfzsCWxJKaDgVg==
 
 word-wrap@~1.2.3:
   version "1.2.3"
