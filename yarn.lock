@@ -1364,12 +1364,12 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@urql/core@>=1.9.0", "@urql/core@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@urql/core/-/core-1.9.0.tgz#9317071175a80fe93bee4277a253275ebce781ea"
-  integrity sha512-kP3/mdzwTUv7wR7EJaXxL1dJklHxXhHamc+NbFqhgmJM3y/Wkdm3b4MZ3Gx0HlLlMgo6/i2G0V26sydQdttd6g==
+"@urql/core@>=1.10.4", "@urql/core@>=1.10.5", "@urql/core@^1.10.5":
+  version "1.10.6"
+  resolved "https://registry.yarnpkg.com/@urql/core/-/core-1.10.6.tgz#f15821f5864eb0a93cb9adcf204a8c11669f89ef"
+  integrity sha512-8gByXpfkOeN5jdnwJbTkJxSxdHyIiZBh3ifOmnPlBjdXkmMgT/adUu+lmS4xlGs278m95N+Pfy7zE8zR+6MeIQ==
   dependencies:
-    wonka "^4.0.7"
+    wonka "^4.0.9"
 
 "@urql/devtools@^0.1.0":
   version "0.1.0"
@@ -1378,13 +1378,22 @@
   dependencies:
     wonka "^3.2.1"
 
-"@urql/exchange-graphcache@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-2.1.1.tgz#15df85fa00f43c74250ac8332b982c61e97ca323"
-  integrity sha512-FbloTlK9rSHfEe0jvuOXnAe1hUpdnpgT/fcs8WE3g3ODj2eqiW008hmLJmDoWkE7QI9MFy+y3rSqe0DhzRyKUA==
+"@urql/exchange-graphcache@latest":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-2.3.0.tgz#dcc5978e5288a67470c9b2661778815f403eb2ce"
+  integrity sha512-JW7ADJFdoaER73B8YhEYs+KPltvs/rreLEP5Ql8tUf8OnXVeP6bnJWFYx3eDGUplaPAByiLVEcDD4Bjtt+Xi8Q==
   dependencies:
-    "@urql/core" ">=1.9.0"
-    wonka "^3.2.1 || ^4.0.0"
+    "@urql/core" ">=1.10.5"
+    "@urql/exchange-populate" ">=0.1.3"
+    wonka "^4.0.9"
+
+"@urql/exchange-populate@>=0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@urql/exchange-populate/-/exchange-populate-0.1.3.tgz#887aa78e802f306f53c5a82f77acb431f3e3eda7"
+  integrity sha512-P7798cncS/8Q4ko1SlfToklq7K7HzHNE38LzlCTLjFtrecnxJ1oedP+QjrYixndeT+hwnUgwllF6vR7sh1/R4Q==
+  dependencies:
+    "@urql/core" ">=1.10.4"
+    wonka "^4.0.9"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -8387,15 +8396,15 @@ react-dev-utils@^10.0.0:
     strip-ansi "5.2.0"
     text-table "0.2.0"
 
-react-dom@16.12.0:
-  version "16.12.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
-  integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
+react-dom@16.13.0:
+  version "16.13.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.13.0.tgz#cdde54b48eb9e8a0ca1b3dc9943d9bb409b81866"
+  integrity sha512-y09d2c4cG220DzdlFkPTnVvGTszVvNpC73v+AaLGLHbkpy3SSgvYq8x0rNwPJ/Rk/CicTNgk0hbHNw1gMEZAXg==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.18.0"
+    scheduler "^0.19.0"
 
 react-error-overlay@^6.0.4:
   version "6.0.4"
@@ -8472,10 +8481,10 @@ react-scripts@3.3.0:
   optionalDependencies:
     fsevents "2.1.2"
 
-react@16.12.0:
-  version "16.12.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
-  integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
+react@16.13.0:
+  version "16.13.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.13.0.tgz#d046eabcdf64e457bbeed1e792e235e1b9934cf7"
+  integrity sha512-TSavZz2iSLkq5/oiE7gnFzmURKZMltmi193rm5HEoUDAXpzT9Kzw6oNZnGoai/4+fUnm7FqS5dwgUL34TujcWQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -8948,10 +8957,10 @@ saxes@^3.1.9:
   dependencies:
     xmlchars "^2.1.1"
 
-scheduler@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.18.0.tgz#5901ad6659bc1d8f3fdaf36eb7a67b0d6746b1c4"
-  integrity sha512-agTSHR1Nbfi6ulI0kYNK0203joW2Y5W4po4l+v03tOoiJKpTBbxpNhWDvqc/4IcOw+KLmSiQLTasZ4cab2/UWQ==
+scheduler@^0.19.0:
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -10058,21 +10067,13 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-urql@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/urql/-/urql-1.9.0.tgz#38a2a5a4c477a34162f00a9a099aa302098f36d1"
-  integrity sha512-A9mJEa5QDUB6+TWDk55UCU7QziwmN5BPBaQsT7LIOtMBNOISy5GAHqPoWqQAFueNoXk8r4rNLPNtkdLnZbES1Q==
+urql@latest:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/urql/-/urql-1.9.5.tgz#6458738c029c4ed3692cb3ac9c1ba4d4260e37b9"
+  integrity sha512-CzkOSAaS5KuP+Sx2rPLOrfMiziGhKwj9syaoG6/fqoCtUeAZaXirKYKSJPUu5u9WDvjJzcTqtpICaCw++cHZsA==
   dependencies:
-    "@urql/core" "^1.9.0"
-    use-subscription "^1.3.0"
-    wonka "^4.0.7"
-
-use-subscription@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/use-subscription/-/use-subscription-1.3.0.tgz#3df13a798e826c8d462899423293289a3362e4e6"
-  integrity sha512-buZV7FUtnbOr+65dN7PHK7chHhQGfk/yjgqfpRLoWuHIAc4klAD/rdot2FsPNtFthN1ZydvA8tR/mWBMQ+/fDQ==
-  dependencies:
-    object-assign "^4.1.1"
+    "@urql/core" "^1.10.5"
+    wonka "^4.0.9"
 
 use@^3.1.0:
   version "3.1.1"
@@ -10387,10 +10388,10 @@ wonka@^3.2.1:
   resolved "https://registry.yarnpkg.com/wonka/-/wonka-3.2.1.tgz#f66123fabbb260f23a4e89f1526317169203e258"
   integrity sha512-LpquZ9PJtYJ31AlMPp5tEba1y+S+wUmY7OyFLGZCmGSNO1ZOTTZGp/HbieFzP5fVJ9fWXCus3ecgDjwAssHSGg==
 
-"wonka@^3.2.1 || ^4.0.0", wonka@^4.0.7:
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/wonka/-/wonka-4.0.7.tgz#b4934685bd2449367bd72ce7770bfe3e6cc8a68b"
-  integrity sha512-Uhyl2cgWCUksYtU0Jt8MSzKUqK4BVUrewWxnn1YlKL3Zco4sDcCUDkbgH0i762HJs1rtsq03cfzsCWxJKaDgVg==
+wonka@^4.0.9:
+  version "4.0.9"
+  resolved "https://registry.yarnpkg.com/wonka/-/wonka-4.0.9.tgz#b21d93621e1d5f3b45ca96d99d03711c7c1f7c55"
+  integrity sha512-he7Nn1254ToUN03zLbJok6QxKdRJd46/QHm8nUcJNViXQnCutCuUgAbZvzoxrX+VXzGb4sCFolC4XhkHsmvdaA==
 
 word-wrap@~1.2.3:
   version "1.2.3"
