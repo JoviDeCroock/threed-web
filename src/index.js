@@ -19,6 +19,8 @@ import { getToken, setToken } from "./utils/auth";
 import { ME_QUERY } from "./modules/auth/meQuery";
 import { THREAD_FRAGMENT } from "./modules/threads/fragments";
 
+import schema from './schema.json';
+
 const subscriptionClient = new SubscriptionClient(
   "wss://threed-test-api.herokuapp.com/subscriptions",
   {
@@ -226,7 +228,15 @@ const cache = cacheExchange({
         }
       }
     }
-  }
+  },
+  resolvers: {
+    Query: {
+      thread: (_, args) => {
+        return { __typename: 'Thread', id: args.id };
+      }
+    }
+  },
+  schema
 });
 
 const client = createClient({

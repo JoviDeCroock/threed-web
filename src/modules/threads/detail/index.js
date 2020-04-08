@@ -10,7 +10,10 @@ import { useScrollToTop } from '../../../common/useScrollToTop';
 
 const ThreadDetail = ({ threadId }) => {
   useScrollToTop();
-  const [{ fetching, data, error }] = useQuery({ query: THREAD_QUERY, variables: { id: threadId } });
+  const [{ fetching, data, error }] = useQuery({
+    query: THREAD_QUERY,
+    variables: { id: threadId },
+  });
 
   useNewLikes(threadId);
   useNewReplies(threadId);
@@ -25,7 +28,7 @@ const ThreadDetail = ({ threadId }) => {
       </HeaderContainer>
       <Replies>
         <h4>Replies:</h4>
-        {data.thread.replies.length > 0 ?
+        {data.thread.replies && data.thread.replies.length > 0 ?
           data.thread.replies.map(reply => (
             <Reply key={reply.id} {...reply} />
           )) : <p>No replies yet, be the first to reply!</p>}
