@@ -9,6 +9,8 @@ import {
   Provider,
   subscriptionExchange
 } from "urql";
+
+import { persistedFetchExchange } from "@urql/exchange-persisted-fetch";
 import { cacheExchange } from "@urql/exchange-graphcache";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { devtoolsExchange } from "@urql/devtools";
@@ -235,6 +237,7 @@ const client = createClient({
     dedupExchange,
     devtoolsExchange,
     cache,
+    persistedFetchExchange,
     fetchExchange,
     subscriptionExchange({
       forwardSubscription: operation => subscriptionClient.request(operation)
