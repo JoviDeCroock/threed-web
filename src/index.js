@@ -237,7 +237,7 @@ const client = createClient({
     dedupExchange,
     devtoolsExchange,
     cache,
-    persistedFetchExchange,
+    persistedFetchExchange(),
     fetchExchange,
     subscriptionExchange({
       forwardSubscription: operation => subscriptionClient.request(operation)
