@@ -16,6 +16,10 @@
     "subscriptions-transport-ws": "0.9.16",
     "urql": "^1.9.7"
   },
+  "resolutions": {
+    "@urql/core": "https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/core",
+    "@urql/exchange-graphcache": "https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/exchange-graphcache"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

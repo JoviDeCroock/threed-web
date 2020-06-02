@@ -1617,10 +1617,9 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@urql/core@>=1.11.6", "@urql/core@>=1.11.7", "@urql/core@>=1.11.8", "@urql/core@^1.11.0":
+"@urql/core@>=1.11.8", "@urql/core@^1.11.0", "@urql/core@https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/core":
   version "1.11.8"
-  resolved "https://registry.yarnpkg.com/@urql/core/-/core-1.11.8.tgz#6a3186ac84d6b08752585f42e8ec81539338d7a9"
-  integrity sha512-lBlCjw3sLlblGIzRVg583IdsONUIt04f/LHI0oiEgNlPViZcRR3B31LCKyOChba/klIqSaDivaqCfzg5wyTPoQ==
+  resolved "https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/core#c0cda1f6e5b7418727c5c05f425c625575e1a940"
   dependencies:
     wonka "^4.0.10"
 
@@ -1631,13 +1630,11 @@
   dependencies:
     wonka ">= 4.0.9"
 
-"@urql/exchange-graphcache@^2.4.2":
+"@urql/exchange-graphcache@^2.4.2", "@urql/exchange-graphcache@https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/exchange-graphcache":
   version "2.4.2"
-  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-2.4.2.tgz#977b71b7e8985c88fa7e6d8c472bd47c96d0e4eb"
-  integrity sha512-jLUmkWnaFQTmRcrhFkb1AUfltw6H8KfXc3dY8LYwcAWkJ8JNAfCENUCQr1GnThHSeEu/3DBgzajpvF8rgjXc/g==
+  resolved "https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/exchange-graphcache#3d1add7fc6149ae3d28e9237a27a02f752ac97f4"
   dependencies:
-    "@urql/core" ">=1.11.7"
-    "@urql/exchange-populate" ">=0.1.7"
+    "@urql/core" "https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/core"
     wonka "^4.0.10"
 
 "@urql/exchange-persisted-fetch@^1.0.0":
@@ -1646,14 +1643,6 @@
   integrity sha512-swLLb78BZD5K17qG1w/SKVhvPclRHjBtj0Cbpf297e2uM7r23h3PycdBUoXk84ThijO5N5+RfoSTkhW7VBuPFQ==
   dependencies:
     "@urql/core" ">=1.11.8"
-    wonka "^4.0.10"
-
-"@urql/exchange-populate@>=0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@urql/exchange-populate/-/exchange-populate-0.1.7.tgz#5f0190b0c56684a3dc499ce0981a6ff0be8500ea"
-  integrity sha512-8mVkQ0KVT8zrd7WG5lvUbQVkYcJPv0J5vgm5IxVAs9ZBrk1EbwO4GX2GKDwTipCo7OxzY45Bs7+fyplnCxfhHw==
-  dependencies:
-    "@urql/core" ">=1.11.6"
     wonka "^4.0.10"
 
 "@webassemblyjs/ast@1.8.5":

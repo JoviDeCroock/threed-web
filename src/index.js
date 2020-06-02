@@ -11,7 +11,8 @@ import {
 } from "urql";
 
 import { persistedFetchExchange } from "@urql/exchange-persisted-fetch";
-import { cacheExchange } from "@urql/exchange-graphcache";
+import { offlineExchange } from "@urql/exchange-graphcache";
+import { makeDefaultStorage} from "@urql/exchange-graphcache/default-storage";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { devtoolsExchange } from "@urql/devtools";
 
@@ -43,7 +44,8 @@ const THREADS_QUERY = gql`
   ${THREAD_FRAGMENT}
 `;
 
-const cache = cacheExchange({
+const cache = offlineExchange({
+  storage: makeDefaultStorage(),
   optimistic: {
     likeReply: (args, cache) => {
       const id = args.replyId;
