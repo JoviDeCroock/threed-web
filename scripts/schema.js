@@ -1,6 +1,10 @@
+#!/usr/bin/env node
+
+const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const { getIntrospectionQuery } = require('graphql');
+const { minifyIntrospectionQuery } = require('@urql/introspection');
 
 fetch('https://threed-test-api.herokuapp.com/graphql', {
   method: 'POST',
@@ -12,11 +16,17 @@ fetch('https://threed-test-api.herokuapp.com/graphql', {
 })
   .then(result => result.json())
   .then(({ data }) => {
-    fs.writeFile('../src/schema.json', JSON.stringify(data), err => {
-      if (err) {
-        console.error('Writing failed:', err);
-        return;
+    data = minifyIntrospectionQuery(data);
+    fs.writeFile(
+      path.resolve(__dirname, '../src/schema.json'),
+      JSON.stringify(data),
+      err => {
+        if (err) {
+          console.error('Writing failed:', err);
+          process.exit(1);
+        }
+
+        console.log('Schema written!');
       }
-      console.log('Schema written!');
-    });
+    );
   });

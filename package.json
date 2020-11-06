@@ -3,24 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reach/router": "1.3.3",
+    "@reach/router": "^1.3.4",
     "@urql/devtools": "^2.0.2",
-    "@urql/exchange-graphcache": "^2.4.2",
-    "@urql/exchange-persisted-fetch": "^1.0.0",
-    "graphql": "15.0.0",
-    "graphql-tag": "2.10.3",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-scripts": "3.4.1",
-    "styled-components": "5.1.1",
-    "subscriptions-transport-ws": "0.9.16",
-    "urql": "^1.9.7"
-  },
-  "resolutions": {
-    "@urql/core": "https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/core",
-    "@urql/exchange-graphcache": "https://pkg.csb.dev/FormidableLabs/urql/commit/81c34aa5/@urql/exchange-graphcache"
+    "@urql/exchange-graphcache": "^3.1.11",
+    "@urql/exchange-persisted-fetch": "^1.2.3",
+    "graphql": "^15.4.0",
+    "graphql-tag": "^2.11.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "^4.0.0",
+    "styled-components": "^5.2.1",
+    "subscriptions-transport-ws": "^0.9.18",
+    "urql": "^1.11.0"
   },
   "scripts": {
+    "schema": "./scripts/schema.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -40,5 +37,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@urql/introspection": "^0.1.1",
+    "levenary": "^1.1.1",
+    "node-fetch": "^2.6.1"
   }
 }
