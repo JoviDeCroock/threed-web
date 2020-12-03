@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import { useMutation } from 'urql';
+import { styled } from 'goober';
+import { gql, useMutation } from 'urql';
 import { navigate } from "@reach/router";
+
 import { Button } from '../../common/Button';
 import { TextField } from '../../common/TextField';
 import { useScrollToTop } from '../../common/useScrollToTop';
@@ -61,12 +62,12 @@ const Auth = () => {
   );
 }
 
-const Wrapper = styled.form`
+const Wrapper = styled('form')`
   display: flex;
   flex-direction: column;
 `;
 
-const ButtonGroup = styled.div`
+const ButtonGroup = styled('div')`
   align-items: center;
   display: flex;
   > button {
@@ -74,7 +75,7 @@ const ButtonGroup = styled.div`
   }
 `;
 
-const SIGN_IN_MUTATION = `
+const SIGN_IN_MUTATION = gql`
   mutation (
     $username: String!
     $password: String!
@@ -90,7 +91,7 @@ const SIGN_IN_MUTATION = `
   }
 `;
 
-const SIGN_UP_MUTATION = `
+const SIGN_UP_MUTATION = gql`
   mutation (
     $username: String!
     $password: String!

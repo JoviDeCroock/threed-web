@@ -1,5 +1,5 @@
 {
-  "name": "threed-web",
+  "name": "@urql/threed-demo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,40 +7,25 @@
     "@urql/devtools": "^2.0.2",
     "@urql/exchange-graphcache": "^3.3.0",
     "@urql/exchange-persisted-fetch": "^1.2.3",
+    "goober": "^2.0.15",
+    "goober-autoprefixer": "^1.2.1",
     "graphql": "^15.4.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "^4.0.0",
-    "styled-components": "^5.2.1",
+    "preact": "^10.5.7",
     "subscriptions-transport-ws": "^0.9.18",
     "urql": "^1.11.4"
   },
+  "alias": {
+    "react": "preact/compat",
+    "react-dom": "preact/compat"
+  },
   "scripts": {
     "schema": "./scripts/schema.js",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "start": "wmr --public src",
+    "build": "wmr build --public src",
+    "serve": "wmr serve --http2 --public src"
   },
   "devDependencies": {
-    "@babel/helper-regex": "^7.10.5",
     "@urql/introspection": "^0.1.1",
-    "levenary": "^1.1.1",
-    "node-fetch": "^2.6.1"
+    "wmr": "^1.0.0"
   }
 }

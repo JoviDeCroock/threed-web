@@ -1,6 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import { styled } from "goober";
 import { gql, useMutation } from "urql";
+
 import { THREAD_FRAGMENT } from "../fragments";
 import { Button } from "../../../common/Button";
 import { TextField } from "../../../common/TextField";
@@ -49,13 +50,13 @@ const CreateThread = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   display: flex;
   justify-content: center;
   padding: 16px;
 `;
 
-const Form = styled.form`
+const Form = styled('form')`
   align-items: center;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'goober';
 import { gql, useMutation } from 'urql';
+
 import { Button } from '../../../../common/Button';
 import { TextField } from '../../../../common/TextField';
 
@@ -32,7 +33,7 @@ const CreateReply = ({ threadId }) => {
   );
 }
 
-const Form = styled.form`
+const Form = styled('form')`
   display: flex;
   flex-direction: column;
   padding: 16px;

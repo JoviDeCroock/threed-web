@@ -1,7 +1,8 @@
 import React from 'react';
 import { THREAD_FRAGMENT, REPLY_FRAGMENT } from '../fragments';
 import { gql, useQuery } from 'urql';
-import styled from "styled-components";
+import { styled } from "goober";
+
 import { useNewLikes, useNewReplies } from '../common';
 import Reply from './reply';
 import CreateReply from './reply/Create';
@@ -50,13 +51,13 @@ const THREAD_QUERY = gql`
   ${REPLY_FRAGMENT}
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   display: flex;
   flex-direction: column;
   margin-top: 32px;
 `;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled('div')`
   background: white;
   border: 1px solid black;
   padding: 16px;
@@ -69,7 +70,7 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const Replies = styled.div`
+const Replies = styled('div')`
   display: flex;
   flex-direction: column;
 `;

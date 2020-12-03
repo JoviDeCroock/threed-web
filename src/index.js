@@ -1,5 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { createElement } from "react";
+import { render } from "react-dom";
+import { prefix } from "goober-autoprefixer";
+import { setup } from "goober";
 
 import {
   gql,
@@ -13,17 +15,19 @@ import {
 import { persistedFetchExchange } from "@urql/exchange-persisted-fetch";
 import { offlineExchange } from "@urql/exchange-graphcache";
 import { makeDefaultStorage} from "@urql/exchange-graphcache/default-storage";
-import { SubscriptionClient } from "subscriptions-transport-ws";
+// import { SubscriptionClient } from "subscriptions-transport-ws";
 import { devtoolsExchange } from "@urql/devtools";
 
 import App from "./App";
-import { GlobalStyles } from "./layout/GlobalStyles";
 import { getToken, setToken } from "./utils/auth";
 import { ME_QUERY } from "./modules/auth/meQuery";
 import { THREAD_FRAGMENT } from "./modules/threads/fragments";
 
 import schema from './schema.json';
 
+setup(createElement, prefix);
+
+/*
 const subscriptionClient = new SubscriptionClient(
   "wss://threed-test-api.herokuapp.com/subscriptions",
   {
@@ -33,6 +37,7 @@ const subscriptionClient = new SubscriptionClient(
     }
   }
 );
+*/
 
 const THREADS_QUERY = gql`
   query($sortBy: SortBy!) {
@@ -251,9 +256,11 @@ const client = createClient({
     cache,
     persistedFetchExchange(),
     fetchExchange,
+    /*
     subscriptionExchange({
       forwardSubscription: operation => subscriptionClient.request(operation)
     })
+    */
   ],
   fetchOptions: () => {
     const token = getToken();
@@ -263,10 +270,9 @@ const client = createClient({
   }
 });
 
-ReactDOM.render(
+render(
   <Provider value={client}>
-    <GlobalStyles />
     <App />
   </Provider>,
-  document.getElementById("root")
+  document.body
 );

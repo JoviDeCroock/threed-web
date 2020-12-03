@@ -1,5 +1,5 @@
 import React from "react";
-import styled from 'styled-components';
+import { styled } from 'goober';
 import { gql, useSubscription, useMutation } from 'urql';
 import { timeDifferenceForDate } from "../../../../utils/timeDiff";
 import { LikeButton } from "../../common/LikeButton";
@@ -28,7 +28,7 @@ const Reply = ({ text, id, createdBy, createdAt, likesNumber }) => {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   border-bottom: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -36,16 +36,16 @@ const Wrapper = styled.div`
   margin-bottom: 8px;
 `;
 
-const Footer = styled.span`
+const Footer = styled('span')`
   font-size: 12px;
 `;
 
-const Body = styled.div`
+const Body = styled('div')`
   display: flex;
   flex-direction: column;
 `;
 
-const Text = styled.p`
+const Text = styled('p')`
   font-size: 16px;
   margin: 0;
   margin-bottom: 8px;

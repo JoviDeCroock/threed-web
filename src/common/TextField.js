@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'goober';
 
 export const TextField = ({ disabled, className, onChange, name, value, type, label, placeholder, cols }) => {
   return (
@@ -20,13 +20,13 @@ export const TextField = ({ disabled, className, onChange, name, value, type, la
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled('div')`
   align-items: center;
   display: flex;
   margin-bottom: 12px;
 
   > label {
-    align-self: ${({ multiline }) => (multiline ? 'flex-start' : 'unset')};
+    align-self: ${p => (p.multiline ? 'flex-start' : 'unset')};
     width: 100px;
   }
 
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Input = styled.input`
+const Input = styled('input')`
   background-color: white;
   border: 0;
   border-bottom: 1px solid grey;
