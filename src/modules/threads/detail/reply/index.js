@@ -1,7 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import { useSubscription, useMutation } from 'urql';
-import gql from 'graphql-tag';
+import { gql, useSubscription, useMutation } from 'urql';
 import { timeDifferenceForDate } from "../../../../utils/timeDiff";
 import { LikeButton } from "../../common/LikeButton";
 import { REPLY_FRAGMENT } from "../../fragments";

@@ -1,7 +1,6 @@
 import React from 'react';
-import gql from 'graphql-tag';
 import { THREAD_FRAGMENT, REPLY_FRAGMENT } from '../fragments';
-import { useQuery } from 'urql';
+import { gql, useQuery } from 'urql';
 import styled from "styled-components";
 import { useNewLikes, useNewReplies } from '../common';
 import Reply from './reply';

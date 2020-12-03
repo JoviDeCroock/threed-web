@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'urql';
 
 export const THREAD_FRAGMENT = gql`
   fragment ThreadFragment on Thread {

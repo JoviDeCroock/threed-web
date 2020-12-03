@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useMutation } from 'urql';
-import gql from 'graphql-tag';
+import { gql, useMutation } from 'urql';
 import { Button } from '../../../../common/Button';
 import { TextField } from '../../../../common/TextField';
 

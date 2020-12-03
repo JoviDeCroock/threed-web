@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import gql from "graphql-tag";
 
 import {
+  gql,
   createClient,
   dedupExchange,
   fetchExchange,
