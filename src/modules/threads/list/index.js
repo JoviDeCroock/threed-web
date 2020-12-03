@@ -1,4 +1,4 @@
-import { gql, useQuery, useSubscription } from "@urql/preact";
+import { gql, useQuery } from "@urql/preact";
 
 import Thread from "./Thread";
 import { THREAD_FRAGMENT } from "../fragments";
@@ -10,8 +10,6 @@ const Home = () => {
     query: THREADS_QUERY,
     variables: { sortBy: "LATEST" }
   });
-
-  useSubscription({ query: NEW_THREAD_SUBSCRIPTION });
 
   if (fetching) return <p>Loading...</p>;
 
@@ -27,15 +25,6 @@ const Home = () => {
 const THREADS_QUERY = gql`
   query($sortBy: SortBy!, $skip: Int, $limit: Int) {
     threads(sortBy: $sortBy, limit: $limit, skip: $skip) {
-      ...ThreadFragment
-    }
-  }
-  ${THREAD_FRAGMENT}
-`;
-
-const NEW_THREAD_SUBSCRIPTION = gql`
-  subscription {
-    newThread {
       ...ThreadFragment
     }
   }

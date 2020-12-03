@@ -1,13 +1,11 @@
 import { styled } from 'goober';
-import { gql, useSubscription, useMutation } from '@urql/preact';
+import { gql, useMutation } from '@urql/preact';
 import { timeDifferenceForDate } from "../../../../utils/timeDiff";
 import { LikeButton } from "../../common/LikeButton";
 import { REPLY_FRAGMENT } from "../../fragments";
 import { getToken } from "../../../../utils/auth";
 
 const Reply = ({ text, id, createdBy, createdAt, likesNumber }) => {
-  useSubscription({ query: NEW_REPLY_LIKE, variables: { id } });
-
   const [result, like] = useMutation(LIKE_REPLY);
 
   return (
@@ -57,19 +55,6 @@ const LIKE_REPLY = gql`
     }
   }
   ${REPLY_FRAGMENT}
-`;
-
-const NEW_REPLY_LIKE = gql`
-  subscription ($id: ID!) {
-    newReplyLike(replyId: $id) {
-      id
-      createdBy {
-        id
-        username
-      }
-      createdAt
-    }
-  }
 `;
 
 export default Reply;

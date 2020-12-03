@@ -7,12 +7,12 @@ import {
 
 import { persistedFetchExchange } from "@urql/exchange-persisted-fetch";
 import { offlineExchange } from "@urql/exchange-graphcache";
-// import { makeDefaultStorage} from "@urql/exchange-graphcache/default-storage";
+import { makeDefaultStorage } from "@urql/exchange-graphcache/default-storage";
 
 import { getToken, setToken } from "./utils/auth";
 import { ME_QUERY } from "./modules/auth/meQuery";
 import { THREAD_FRAGMENT } from "./modules/threads/fragments";
-// import schema from './schema.json';
+import schema from './schema';
 
 const THREADS_QUERY = gql`
   query($sortBy: SortBy!) {
@@ -24,20 +24,9 @@ const THREADS_QUERY = gql`
   ${THREAD_FRAGMENT}
 `;
 
-/*
-const subscriptionClient = new SubscriptionClient(
-  "wss://threed-test-api.herokuapp.com/subscriptions",
-  {
-    reconnect: true,
-    connectionParams: {
-      authToken: getToken()
-    }
-  }
-);
-*/
-
 const cache = offlineExchange({
-  // storage: makeDefaultStorage(),
+  schema,
+  storage: makeDefaultStorage(),
   optimistic: {
     likeReply: (args, cache) => {
       const id = args.replyId;
@@ -136,94 +125,6 @@ const cache = offlineExchange({
         }
       }
     },
-    Subscription: {
-      newThread: (result, _args, cache) => {
-        cache.updateQuery(
-          { query: THREADS_QUERY, variables: { sortBy: "LATEST" } },
-          data => {
-            if (data) {
-              const newThread = result.newThread;
-              const hasThread = data.threads.some(
-                x => x && x.id === newThread.id
-              );
-              if (!hasThread) data.threads.unshift(newThread);
-            }
-
-            return data;
-          }
-        );
-      },
-      newReply: (result, { threadId: id }, cache) => {
-        const numberFrag = gql`
-          fragment _ on Thread {
-            id
-            repliesNumber
-          }
-        `;
-        const numberData = cache.readFragment(numberFrag, { id });
-        if (numberData) {
-          numberData.repliesNumber++;
-          cache.writeFragment(numberFrag, numberData);
-        }
-
-        const repliesFrag = gql`
-          fragment _ on Thread {
-            id
-            replies {
-              id
-            }
-          }
-        `;
-        const repliesData = cache.readFragment(repliesFrag, { id });
-        if (repliesData) {
-          const newReply = result.newReply;
-          const hasReply = repliesData.replies.some(
-            x => x && x.id === newReply.id
-          );
-          if (!hasReply) {
-            repliesData.replies.unshift(newReply);
-            cache.writeFragment(repliesFrag, repliesData);
-          } else if (numberData) {
-            numberData.repliesNumber--;
-            cache.writeFragment(numberFrag, numberData);
-          }
-        }
-      },
-      newThreadLike: (result, args, cache) => {
-        const me = cache.readQuery({ query: ME_QUERY });
-        if (!me || me.id !== result.newThreadLike.createdBy.id) {
-          const fragment = gql`
-            fragment _ on Thread {
-              id
-              likesNumber
-            }
-          `;
-
-          const data = cache.readFragment(fragment, { id: args.threadId });
-          if (data) {
-            data.likesNumber++;
-            cache.writeFragment(fragment, data);
-          }
-        }
-      },
-      newReplyLike: (result, args, cache) => {
-        const me = cache.readQuery({ query: ME_QUERY });
-        if (!me || me.id !== result.newReplyLike.createdBy.id) {
-          const fragment = gql`
-            fragment _ on Reply {
-              id
-              likesNumber
-            }
-          `;
-
-          const data = cache.readFragment(fragment, { id: args.replyId });
-          if (data) {
-            data.likesNumber++;
-            cache.writeFragment(fragment, data);
-          }
-        }
-      }
-    }
   },
   resolvers: {
     Query: {
@@ -232,7 +133,6 @@ const cache = offlineExchange({
       }
     }
   },
-  // schema
 });
 
 export const client = createClient({
@@ -242,11 +142,6 @@ export const client = createClient({
     cache,
     persistedFetchExchange(),
     fetchExchange,
-    /*
-    subscriptionExchange({
-      forwardSubscription: operation => subscriptionClient.request(operation)
-    })
-    */
   ],
   fetchOptions: () => {
     const token = getToken();

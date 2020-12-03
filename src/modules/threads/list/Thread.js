@@ -3,15 +3,11 @@ import { gql, useMutation } from '@urql/preact';
 import { Link } from 'preact-router';
 
 import { timeDifferenceForDate } from '../../../utils/timeDiff';
-import { useNewLikes, useNewReplies } from '../common';
 import { LikeButton } from '../common/LikeButton';
 import { getToken } from '../../../utils/auth';
 
 const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, createdAt }) => {
   const [result, like] = useMutation(LIKE_THREAD_MUTATION);
-
-  useNewLikes(id);
-  useNewReplies(id);
 
   return (
     <Wrapper>
