@@ -1,6 +1,6 @@
-import React from 'react';
-import { Router } from "@reach/router";
+import { Router } from 'preact-router';
 import { styled } from 'goober';
+
 import Header from './layout/Header';
 import Home from "./modules/threads/list";
 import Auth from "./modules/auth";
@@ -14,7 +14,7 @@ const Wrapper = styled('div')`
 `;
 
 const App = () => (
-  <React.Fragment>
+  <>
     <Header />
     <Wrapper>
       <Router>
@@ -24,7 +24,7 @@ const App = () => (
         <Auth path="/login" />
       </Router>
     </Wrapper>
-  </React.Fragment>
+  </>
 );
 
 export default App;

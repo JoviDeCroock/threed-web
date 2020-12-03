@@ -1,7 +1,6 @@
-import React from 'react';
 import { styled } from 'goober';
-import { gql, useMutation } from 'urql';
-import { Link } from "@reach/router";
+import { gql, useMutation } from '@urql/preact';
+import { Link } from 'preact-router';
 
 import { timeDifferenceForDate } from '../../../utils/timeDiff';
 import { useNewLikes, useNewReplies } from '../common';
@@ -24,7 +23,7 @@ const Thead = ({ title, text, createdBy, likesNumber, repliesNumber, id, created
       <TextGroup>
         <LikeButton disabled={result.fetching || !getToken()} onClick={() => like({ id })} />
         <Likes>{likesNumber} likes</Likes>
-        <Replies to={`/threads/${id}`}>{repliesNumber} replies</Replies>
+        <Replies href={`/threads/${id}`}>{repliesNumber} replies</Replies>
       </TextGroup>
     </Wrapper>
   );

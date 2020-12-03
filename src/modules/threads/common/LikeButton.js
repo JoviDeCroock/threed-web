@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled } from 'goober';
 
 export const LikeButton = ({ disabled, onClick }) => (

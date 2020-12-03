@@ -1,6 +1,5 @@
-import React from 'react';
 import { THREAD_FRAGMENT, REPLY_FRAGMENT } from '../fragments';
-import { gql, useQuery } from 'urql';
+import { gql, useQuery } from '@urql/preact';
 import { styled } from "goober";
 
 import { useNewLikes, useNewReplies } from '../common';
@@ -8,8 +7,11 @@ import Reply from './reply';
 import CreateReply from './reply/Create';
 import { useScrollToTop } from '../../../common/useScrollToTop';
 
-const ThreadDetail = ({ threadId }) => {
+const ThreadDetail = ({ params }) => {
   useScrollToTop();
+
+  const { threadId } = params;
+
   const [{ fetching, data, error }] = useQuery({
     query: THREAD_QUERY,
     variables: { id: threadId },

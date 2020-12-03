@@ -1,6 +1,5 @@
-import React from "react";
 import { styled } from 'goober';
-import { gql, useSubscription, useMutation } from 'urql';
+import { gql, useSubscription, useMutation } from '@urql/preact';
 import { timeDifferenceForDate } from "../../../../utils/timeDiff";
 import { LikeButton } from "../../common/LikeButton";
 import { REPLY_FRAGMENT } from "../../fragments";

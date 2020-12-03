@@ -1,4 +1,6 @@
-export const ME_QUERY = `
+import { gql } from '@urql/preact';
+
+export const ME_QUERY = gql`
   query {
     me {
       id

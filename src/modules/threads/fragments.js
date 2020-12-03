@@ -1,4 +1,4 @@
-import { gql } from 'urql';
+import { gql } from '@urql/preact';
 
 export const THREAD_FRAGMENT = gql`
   fragment ThreadFragment on Thread {

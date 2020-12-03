@@ -1,7 +1,7 @@
-import React from 'react';
+import { useEffect } from 'preact/hooks';
 
 export const useScrollToTop = () => {
-  React.useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
 }

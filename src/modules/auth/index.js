@@ -1,7 +1,7 @@
-import React from 'react';
+import { useCallback, useEffect, useState } from 'preact/hooks';
 import { styled } from 'goober';
-import { gql, useMutation } from 'urql';
-import { navigate } from "@reach/router";
+import { gql, useMutation } from '@urql/preact';
+import { route } from 'preact-router';
 
 import { Button } from '../../common/Button';
 import { TextField } from '../../common/TextField';
@@ -9,21 +9,22 @@ import { useScrollToTop } from '../../common/useScrollToTop';
 
 const Auth = () => {
   useScrollToTop();
-  const [isLogin, setIsLogin] = React.useState(true);
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
 
-  React.useEffect(() => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
     setUsername('');
     setPassword('');
   }, [isLogin]);
 
   const [data, executeMutation] = useMutation(isLogin ? SIGN_IN_MUTATION : SIGN_UP_MUTATION);
 
-  const onSubmit = React.useCallback((e) => {
+  const onSubmit = useCallback((e) => {
     e.preventDefault();
     executeMutation({ username, password }).then(result => {
-      if (!result.error) navigate('/');
+      if (!result.error) route('/');
     });
   }, [username, password, executeMutation]);
 

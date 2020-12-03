@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled } from 'goober';
 
 export const TextField = ({ disabled, className, onChange, name, value, type, label, placeholder, cols }) => {

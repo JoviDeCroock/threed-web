@@ -1,5 +1,5 @@
-import React from "react";
-import { gql, useQuery, useSubscription } from "urql";
+import { gql, useQuery, useSubscription } from "@urql/preact";
+
 import Thread from "./Thread";
 import { THREAD_FRAGMENT } from "../fragments";
 import { useScrollToTop } from "../../../common/useScrollToTop";

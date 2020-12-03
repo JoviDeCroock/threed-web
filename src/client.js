@@ -3,7 +3,7 @@ import {
   createClient,
   dedupExchange,
   fetchExchange
-} from "urql";
+} from '@urql/preact';
 
 import { persistedFetchExchange } from "@urql/exchange-persisted-fetch";
 import { offlineExchange } from "@urql/exchange-graphcache";

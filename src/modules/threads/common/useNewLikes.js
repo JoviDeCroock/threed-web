@@ -1,4 +1,4 @@
-import { useSubscription } from 'urql';
+import { useSubscription } from '@urql/preact';
 
 export const useNewLikes = (id) => {
   return useSubscription({ query: NEW_LIKES_SUBSCRIPTION, variables: { id } });

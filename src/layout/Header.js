@@ -1,7 +1,7 @@
-import React from 'react';
 import { styled } from 'goober';
-import { useQuery } from 'urql';
-import { Link } from '@reach/router';
+import { useQuery } from '@urql/preact';
+import { Link } from 'preact-router';
+
 import { getToken, removeToken } from '../utils/auth';
 import { ME_QUERY } from '../modules/auth/meQuery';
 import { Button } from '../common/Button';
@@ -14,11 +14,11 @@ const Home = () => {
   return (
     <Wrapper>
       <LinksWrapper>
-        <StyledLink to="/">Posts</StyledLink>
-        <StyledLink to="/new">Create thread</StyledLink>
+        <StyledLink href="/">Posts</StyledLink>
+        <StyledLink href="/new">Create thread</StyledLink>
       </LinksWrapper>
       {!isLoggedIn ? (
-        <Link to="/login">Login</Link>
+        <Link href="/login">Login</Link>
       ) : (
         <LinksWrapper>
           <WelcomeText>

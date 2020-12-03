@@ -1,6 +1,6 @@
-import React from "react";
+import { useState, useCallback } from 'preact/hooks';
 import { styled } from "goober";
-import { gql, useMutation } from "urql";
+import { gql, useMutation } from "@urql/preact";
 
 import { THREAD_FRAGMENT } from "../fragments";
 import { Button } from "../../../common/Button";
@@ -9,12 +9,12 @@ import { useScrollToTop } from "../../../common/useScrollToTop";
 
 const CreateThread = () => {
   useScrollToTop();
-  const [title, setTitle] = React.useState("");
-  const [text, setText] = React.useState('');
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
 
   const [result, createThread] = useMutation(CREATE_THREAD_MUTATION);
 
-  const onSubmit = React.useCallback(e => {
+  const onSubmit = useCallback(e => {
     e.preventDefault();
     createThread({ title, text }).then(() => {
       setText('');

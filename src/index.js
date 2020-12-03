@@ -1,8 +1,7 @@
-import React, { createElement } from "react";
-import { render } from "react-dom";
-import { prefix } from "goober-autoprefixer";
-import { setup } from "goober";
-import { Provider } from "urql";
+import { createElement, render } from 'preact';
+import { prefix } from 'goober-autoprefixer';
+import { setup } from 'goober';
+import { Provider } from '@urql/preact';
 
 import App from "./App";
 import { client } from "./client";

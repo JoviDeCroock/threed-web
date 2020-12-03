@@ -1,16 +1,15 @@
-import React from 'react';
+import { useState, useCallback } from 'preact/hooks';
 import { styled } from 'goober';
-import { gql, useMutation } from 'urql';
+import { gql, useMutation } from '@urql/preact';
 
 import { Button } from '../../../../common/Button';
 import { TextField } from '../../../../common/TextField';
 
 const CreateReply = ({ threadId }) => {
   const [result, reply] = useMutation(CREATE_REPLY_MUTATION);
+  const [text, setText] = useState('');
 
-  const [text, setText] = React.useState('');
-
-  const onSubmit = React.useCallback(e => {
+  const onSubmit = useCallback(e => {
     e.preventDefault();
     reply({ threadId, text }).then(() => {
       setText('');
