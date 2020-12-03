@@ -7,12 +7,6 @@ import Auth from "./modules/auth";
 import CreateThread from './modules/threads/create';
 import ThreadDetail from './modules/threads/detail';
 
-const Wrapper = styled('div')`
-  min-height: 100%;
-  padding: 8px 16px;
-  background-color: #f6f6ef;
-`;
-
 const App = () => (
   <>
     <Header />

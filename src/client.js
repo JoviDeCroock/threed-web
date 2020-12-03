@@ -7,13 +7,12 @@ import {
 
 import { persistedFetchExchange } from "@urql/exchange-persisted-fetch";
 import { offlineExchange } from "@urql/exchange-graphcache";
-import { makeDefaultStorage} from "@urql/exchange-graphcache/default-storage";
-import { devtoolsExchange } from "@urql/devtools";
+// import { makeDefaultStorage} from "@urql/exchange-graphcache/default-storage";
 
 import { getToken, setToken } from "./utils/auth";
 import { ME_QUERY } from "./modules/auth/meQuery";
 import { THREAD_FRAGMENT } from "./modules/threads/fragments";
-import schema from './schema.json';
+// import schema from './schema.json';
 
 const THREADS_QUERY = gql`
   query($sortBy: SortBy!) {
@@ -38,7 +37,7 @@ const subscriptionClient = new SubscriptionClient(
 */
 
 const cache = offlineExchange({
-  storage: makeDefaultStorage(),
+  // storage: makeDefaultStorage(),
   optimistic: {
     likeReply: (args, cache) => {
       const id = args.replyId;
@@ -233,14 +232,13 @@ const cache = offlineExchange({
       }
     }
   },
-  schema
+  // schema
 });
 
 export const client = createClient({
   url: "https://threed-test-api.herokuapp.com/graphql",
   exchanges: [
     dedupExchange,
-    devtoolsExchange,
     cache,
     persistedFetchExchange(),
     fetchExchange,

@@ -18,8 +18,8 @@ fetch('https://threed-test-api.herokuapp.com/graphql', {
   .then(({ data }) => {
     data = minifyIntrospectionQuery(data);
     fs.writeFile(
-      path.resolve(__dirname, '../src/schema.json'),
-      JSON.stringify(data),
+      path.resolve(__dirname, '../src/schema.js'),
+      `export default JSON.parse(${JSON.stringify(data)});`,
       err => {
         if (err) {
           console.error('Writing failed:', err);

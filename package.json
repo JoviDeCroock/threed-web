@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@urql/devtools": "^2.0.2",
     "@urql/exchange-graphcache": "^3.3.0",
     "@urql/exchange-persisted-fetch": "^1.2.3",
     "@urql/preact": "^1.4.3",
@@ -18,10 +17,12 @@
     "schema": "./scripts/schema.js",
     "start": "wmr --public src",
     "build": "wmr build --public src",
-    "serve": "wmr serve --http2 --public src"
+    "serve": "wmr serve --http2"
   },
   "devDependencies": {
     "@urql/introspection": "^0.1.1",
+    "csstype": "^3.0.5",
+    "node-fetch": "^2.6.1",
     "wmr": "^1.0.0"
   }
 }
