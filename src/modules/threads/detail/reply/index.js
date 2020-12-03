@@ -1,5 +1,5 @@
-import { styled } from 'goober';
-import { gql, useMutation } from '@urql/preact';
+import { styled } from "goober";
+import { gql, useMutation } from "@urql/preact";
 import { timeDifferenceForDate } from "../../../../utils/timeDiff";
 import { LikeButton } from "../../common/LikeButton";
 import { REPLY_FRAGMENT } from "../../fragments";
@@ -23,9 +23,9 @@ const Reply = ({ text, id, createdBy, createdAt, likesNumber }) => {
       </Footer>
     </Wrapper>
   );
-}
+};
 
-const Wrapper = styled('div')`
+const Wrapper = styled("div")`
   border-bottom: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -33,24 +33,24 @@ const Wrapper = styled('div')`
   margin-bottom: 8px;
 `;
 
-const Footer = styled('span')`
+const Footer = styled("span")`
   font-size: 12px;
 `;
 
-const Body = styled('div')`
+const Body = styled("div")`
   display: flex;
   flex-direction: column;
 `;
 
-const Text = styled('p')`
+const Text = styled("p")`
   font-size: 16px;
   margin: 0;
   margin-bottom: 8px;
 `;
 
 const LIKE_REPLY = gql`
-  mutation ($id: ID!) {
-    likeReply (replyId: $id) {
+  mutation($id: ID!) {
+    likeReply(replyId: $id) {
       ...ReplyFragment
     }
   }

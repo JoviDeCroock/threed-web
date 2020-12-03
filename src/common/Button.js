@@ -1,6 +1,6 @@
 import { styled } from "goober";
 
-export const Button = styled('button')`
+export const Button = styled("button")`
   background-color: white;
-  border: 1px solid #D8D8D8
+  border: 1px solid #d8d8d8;
 `;

@@ -8,14 +8,14 @@ const Home = () => {
   useScrollToTop();
   const [{ fetching, data }] = useQuery({
     query: THREADS_QUERY,
-    variables: { sortBy: "LATEST" }
+    variables: { sortBy: "LATEST" },
   });
 
   if (fetching) return <p>Loading...</p>;
 
   return (
     <div>
-      {data.threads.map(thread => (
+      {data.threads.map((thread) => (
         <Thread key={thread.id} {...thread} />
       ))}
     </div>

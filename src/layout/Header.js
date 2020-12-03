@@ -1,10 +1,10 @@
-import { styled } from 'goober';
-import { useQuery } from '@urql/preact';
-import { Link } from 'preact-router';
+import { styled } from "goober";
+import { useQuery } from "@urql/preact";
+import { Link } from "preact-router";
 
-import { getToken, removeToken } from '../utils/auth';
-import { ME_QUERY } from '../modules/auth/meQuery';
-import { Button } from '../common/Button';
+import { getToken, removeToken } from "../utils/auth";
+import { ME_QUERY } from "../modules/auth/meQuery";
+import { Button } from "../common/Button";
 
 const Home = () => {
   const isLoggedIn = !!getToken();
@@ -37,21 +37,21 @@ const Home = () => {
       )}
     </Wrapper>
   );
-}
+};
 
-const Wrapper = styled('div')`
+const Wrapper = styled("div")`
   background-color: #ff6600;
   display: flex;
   justify-content: space-between;
   padding: 10px;
 `;
 
-const WelcomeText = styled('p')`
+const WelcomeText = styled("p")`
   margin: 0;
   margin-right: 8px;
 `;
 
-const LinksWrapper = styled('div')`
+const LinksWrapper = styled("div")`
   align-items: center;
   display: flex;
 `;

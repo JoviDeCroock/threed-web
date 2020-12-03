@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'preact/hooks';
+import { useState, useCallback } from "preact/hooks";
 import { styled } from "goober";
 import { gql, useMutation } from "@urql/preact";
 
@@ -9,18 +9,21 @@ import { useScrollToTop } from "../../../common/useScrollToTop";
 
 const CreateThread = () => {
   useScrollToTop();
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
 
   const [result, createThread] = useMutation(CREATE_THREAD_MUTATION);
 
-  const onSubmit = useCallback(e => {
-    e.preventDefault();
-    createThread({ title, text }).then(() => {
-      setText('');
-      setTitle('');
-    });
-  }, [title, text, createThread]);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      createThread({ title, text }).then(() => {
+        setText("");
+        setTitle("");
+      });
+    },
+    [title, text, createThread]
+  );
 
   return (
     <Wrapper>
@@ -32,7 +35,7 @@ const CreateThread = () => {
           placeholder="title"
           label="title"
           value={title}
-          onChange={e => setTitle(e.currentTarget.value)}
+          onChange={(e) => setTitle(e.currentTarget.value)}
         />
         <TextField
           cols="3"
@@ -42,7 +45,7 @@ const CreateThread = () => {
           label="text"
           placeholder="insert your text"
           value={text}
-          onChange={e => setText(e.currentTarget.value)}
+          onChange={(e) => setText(e.currentTarget.value)}
         />
         <StyledButton type="submit">Create</StyledButton>
       </Form>
@@ -50,13 +53,13 @@ const CreateThread = () => {
   );
 };
 
-const Wrapper = styled('div')`
+const Wrapper = styled("div")`
   display: flex;
   justify-content: center;
   padding: 16px;
 `;
 
-const Form = styled('form')`
+const Form = styled("form")`
   align-items: center;
   display: flex;
   flex-direction: column;

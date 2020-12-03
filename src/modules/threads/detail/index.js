@@ -1,10 +1,10 @@
-import { THREAD_FRAGMENT, REPLY_FRAGMENT } from '../fragments';
-import { gql, useQuery } from '@urql/preact';
+import { THREAD_FRAGMENT, REPLY_FRAGMENT } from "../fragments";
+import { gql, useQuery } from "@urql/preact";
 import { styled } from "goober";
 
-import Reply from './reply';
-import CreateReply from './reply/Create';
-import { useScrollToTop } from '../../../common/useScrollToTop';
+import Reply from "./reply";
+import CreateReply from "./reply/Create";
+import { useScrollToTop } from "../../../common/useScrollToTop";
 
 const ThreadDetail = ({ params }) => {
   useScrollToTop();
@@ -16,7 +16,7 @@ const ThreadDetail = ({ params }) => {
     variables: { id: threadId },
   });
 
-  if (fetching || error) return <p>Loading...</p>
+  if (fetching || error) return <p>Loading...</p>;
 
   return (
     <Wrapper>
@@ -26,15 +26,18 @@ const ThreadDetail = ({ params }) => {
       </HeaderContainer>
       <Replies>
         <h4>Replies:</h4>
-        {data.thread.replies && data.thread.replies.length > 0 ?
-          data.thread.replies.map(reply => (
+        {data.thread.replies && data.thread.replies.length > 0 ? (
+          data.thread.replies.map((reply) => (
             <Reply key={reply.id} {...reply} />
-          )) : <p>No replies yet, be the first to reply!</p>}
+          ))
+        ) : (
+          <p>No replies yet, be the first to reply!</p>
+        )}
       </Replies>
       <CreateReply threadId={threadId} />
     </Wrapper>
   );
-}
+};
 
 const THREAD_QUERY = gql`
   query($id: ID!) {
@@ -49,13 +52,13 @@ const THREAD_QUERY = gql`
   ${REPLY_FRAGMENT}
 `;
 
-const Wrapper = styled('div')`
+const Wrapper = styled("div")`
   display: flex;
   flex-direction: column;
   margin-top: 32px;
 `;
 
-const HeaderContainer = styled('div')`
+const HeaderContainer = styled("div")`
   background: white;
   border: 1px solid black;
   padding: 16px;
@@ -68,7 +71,7 @@ const HeaderContainer = styled('div')`
   }
 `;
 
-const Replies = styled('div')`
+const Replies = styled("div")`
   display: flex;
   flex-direction: column;
 `;

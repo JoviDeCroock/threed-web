@@ -1,20 +1,23 @@
-import { useState, useCallback } from 'preact/hooks';
-import { styled } from 'goober';
-import { gql, useMutation } from '@urql/preact';
+import { useState, useCallback } from "preact/hooks";
+import { styled } from "goober";
+import { gql, useMutation } from "@urql/preact";
 
-import { Button } from '../../../../common/Button';
-import { TextField } from '../../../../common/TextField';
+import { Button } from "../../../../common/Button";
+import { TextField } from "../../../../common/TextField";
 
 const CreateReply = ({ threadId }) => {
   const [result, reply] = useMutation(CREATE_REPLY_MUTATION);
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
-  const onSubmit = useCallback(e => {
-    e.preventDefault();
-    reply({ threadId, text }).then(() => {
-      setText('');
-    });
-  }, [text, reply, threadId]);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      reply({ threadId, text }).then(() => {
+        setText("");
+      });
+    },
+    [text, reply, threadId]
+  );
 
   return (
     <Form onSubmit={onSubmit}>
@@ -24,15 +27,15 @@ const CreateReply = ({ threadId }) => {
         label="Reply"
         type="multiline"
         disabled={result.fetching}
-        onChange={e => setText(e.currentTarget.value)}
+        onChange={(e) => setText(e.currentTarget.value)}
         value={text}
       />
       <StyledButton type="submit">Submit</StyledButton>
     </Form>
   );
-}
+};
 
-const Form = styled('form')`
+const Form = styled("form")`
   display: flex;
   flex-direction: column;
   padding: 16px;

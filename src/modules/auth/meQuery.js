@@ -1,4 +1,4 @@
-import { gql } from '@urql/preact';
+import { gql } from "@urql/preact";
 
 export const ME_QUERY = gql`
   query {

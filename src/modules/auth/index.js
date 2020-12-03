@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'preact/hooks';
-import { styled } from 'goober';
-import { gql, useMutation } from '@urql/preact';
-import { route } from 'preact-router';
+import { useCallback, useEffect, useState } from "preact/hooks";
+import { styled } from "goober";
+import { gql, useMutation } from "@urql/preact";
+import { route } from "preact-router";
 
-import { Button } from '../../common/Button';
-import { TextField } from '../../common/TextField';
-import { useScrollToTop } from '../../common/useScrollToTop';
+import { Button } from "../../common/Button";
+import { TextField } from "../../common/TextField";
+import { useScrollToTop } from "../../common/useScrollToTop";
 
 const Auth = () => {
   useScrollToTop();
@@ -15,24 +15,29 @@ const Auth = () => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    setUsername('');
-    setPassword('');
+    setUsername("");
+    setPassword("");
   }, [isLogin]);
 
-  const [data, executeMutation] = useMutation(isLogin ? SIGN_IN_MUTATION : SIGN_UP_MUTATION);
+  const [data, executeMutation] = useMutation(
+    isLogin ? SIGN_IN_MUTATION : SIGN_UP_MUTATION
+  );
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-    executeMutation({ username, password }).then(result => {
-      if (!result.error) route('/');
-    });
-  }, [username, password, executeMutation]);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      executeMutation({ username, password }).then((result) => {
+        if (!result.error) route("/");
+      });
+    },
+    [username, password, executeMutation]
+  );
 
   return (
     <Wrapper onSubmit={onSubmit}>
       <TextField
         type="text"
-        onChange={e => setUsername(e.currentTarget.value)}
+        onChange={(e) => setUsername(e.currentTarget.value)}
         placeholder="username"
         name="username"
         label="username"
@@ -42,7 +47,7 @@ const Auth = () => {
       <TextField
         type="password"
         label="password"
-        onChange={e => setPassword(e.currentTarget.value)}
+        onChange={(e) => setPassword(e.currentTarget.value)}
         name="password"
         disabled={data.fetching}
         value={password}
@@ -54,21 +59,21 @@ const Auth = () => {
         <Button
           disabled={data.fetching}
           type="button"
-          onClick={() => setIsLogin(l => !l)}
+          onClick={() => setIsLogin((l) => !l)}
         >
           {isLogin ? "I have no account" : "I have an account"}
         </Button>
       </ButtonGroup>
     </Wrapper>
   );
-}
+};
 
-const Wrapper = styled('form')`
+const Wrapper = styled("form")`
   display: flex;
   flex-direction: column;
 `;
 
-const ButtonGroup = styled('div')`
+const ButtonGroup = styled("div")`
   align-items: center;
   display: flex;
   > button {
@@ -77,11 +82,8 @@ const ButtonGroup = styled('div')`
 `;
 
 const SIGN_IN_MUTATION = gql`
-  mutation (
-    $username: String!
-    $password: String!
-  ) {
-    signin (username: $username password: $password) {
+  mutation($username: String!, $password: String!) {
+    signin(username: $username, password: $password) {
       token
       user {
         id
@@ -93,11 +95,8 @@ const SIGN_IN_MUTATION = gql`
 `;
 
 const SIGN_UP_MUTATION = gql`
-  mutation (
-    $username: String!
-    $password: String!
-  ) {
-    signup (username: $username password: $password) {
+  mutation($username: String!, $password: String!) {
+    signup(username: $username, password: $password) {
       token
       user {
         id

@@ -1,4 +1,4 @@
-import { styled } from 'goober';
+import { styled } from "goober";
 
 export const LikeButton = ({ disabled, onClick }) => (
   <Button disabled={disabled} onClick={onClick}>
@@ -8,7 +8,7 @@ export const LikeButton = ({ disabled, onClick }) => (
   </Button>
 );
 
-const Button = styled('button')`
+const Button = styled("button")`
   transition: background-color 0.33s;
   &:hover {
     background-color: #f6f6bf;

@@ -1,11 +1,21 @@
-import { styled } from 'goober';
+import { styled } from "goober";
 
-export const TextField = ({ disabled, className, onChange, name, value, type, label, placeholder, cols }) => {
+export const TextField = ({
+  disabled,
+  className,
+  onChange,
+  name,
+  value,
+  type,
+  label,
+  placeholder,
+  cols,
+}) => {
   return (
-    <Wrapper className={className} multiline={type === 'multiline'}>
+    <Wrapper className={className} multiline={type === "multiline"}>
       {label && <label htmlFor={name}>{label}</label>}
       <Input
-        as={type === 'multiline' ? 'textarea' : 'input'}
+        as={type === "multiline" ? "textarea" : "input"}
         cols={cols}
         disabled={disabled}
         id={name}
@@ -17,24 +27,25 @@ export const TextField = ({ disabled, className, onChange, name, value, type, la
       />
     </Wrapper>
   );
-}
+};
 
-const Wrapper = styled('div')`
+const Wrapper = styled("div")`
   align-items: center;
   display: flex;
   margin-bottom: 12px;
 
   > label {
-    align-self: ${p => (p.multiline ? 'flex-start' : 'unset')};
+    align-self: ${(p) => (p.multiline ? "flex-start" : "unset")};
     width: 100px;
   }
 
-  > input, textarea {
+  > input,
+  textarea {
     width: 400px;
   }
 `;
 
-const Input = styled('input')`
+const Input = styled("input")`
   background-color: white;
   border: 0;
   border-bottom: 1px solid grey;
@@ -42,5 +53,3 @@ const Input = styled('input')`
     border-bottom-color: blue;
   }
 `;
-
-
