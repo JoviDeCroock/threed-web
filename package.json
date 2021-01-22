@@ -14,7 +14,7 @@
     "react-scripts": "^4.0.0",
     "styled-components": "^5.2.1",
     "subscriptions-transport-ws": "^0.9.18",
-    "urql": "^1.11.0"
+    "urql": "https://pkg.csb.dev/FormidableLabs/urql/commit/0cc4cae0/urql"
   },
   "scripts": {
     "schema": "./scripts/schema.js",

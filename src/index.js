@@ -245,6 +245,7 @@ const cache = offlineExchange({
 
 const client = createClient({
   url: "https://threed-test-api.herokuapp.com/graphql",
+  suspense: true,
   exchanges: [
     dedupExchange,
     devtoolsExchange,
@@ -266,7 +267,9 @@ const client = createClient({
 ReactDOM.render(
   <Provider value={client}>
     <GlobalStyles />
-    <App />
+    <React.Suspense fallback={<p>Loading...</p>}>
+      <App />
+    </React.Suspense>
   </Provider>,
   document.getElementById("root")
 );

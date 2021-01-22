@@ -9,7 +9,7 @@ import { Button } from '../common/Button';
 const Home = () => {
   const isLoggedIn = !!getToken();
 
-  const [{ data, fetching }, refetch] = useQuery({ query: ME_QUERY });
+  const [{ data }, refetch] = useQuery({ query: ME_QUERY });
 
   return (
     <Wrapper>
@@ -22,7 +22,7 @@ const Home = () => {
       ) : (
         <LinksWrapper>
           <WelcomeText>
-            {fetching ? "Loading..." : `Welcome ${data.me.username}`}
+            {`Welcome ${data.me.username}`}
           </WelcomeText>
           <Button
             type="button"

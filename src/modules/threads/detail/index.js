@@ -10,7 +10,7 @@ import { useScrollToTop } from '../../../common/useScrollToTop';
 
 const ThreadDetail = ({ threadId }) => {
   useScrollToTop();
-  const [{ fetching, data, error }] = useQuery({
+  const [{ data, error }] = useQuery({
     query: THREAD_QUERY,
     variables: { id: threadId },
   });
@@ -18,7 +18,7 @@ const ThreadDetail = ({ threadId }) => {
   useNewLikes(threadId);
   useNewReplies(threadId);
 
-  if (fetching || error) return <p>Loading...</p>
+  if (error) return <p>Error...</p>
 
   return (
     <Wrapper>

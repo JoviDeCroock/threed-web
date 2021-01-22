@@ -7,14 +7,12 @@ import { useScrollToTop } from "../../../common/useScrollToTop";
 
 const Home = () => {
   useScrollToTop();
-  const [{ fetching, data }] = useQuery({
+  const [{ data }] = useQuery({
     query: THREADS_QUERY,
     variables: { sortBy: "LATEST" }
   });
 
   useSubscription({ query: NEW_THREAD_SUBSCRIPTION });
-
-  if (fetching) return <p>Loading...</p>;
 
   return (
     <div>

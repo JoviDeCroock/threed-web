@@ -17,12 +17,14 @@ const App = () => (
   <React.Fragment>
     <Header />
     <Wrapper>
-      <Router>
-        <Home path="/" />
-        <CreateThread path="/new" />
-        <ThreadDetail path="/threads/:threadId" />
-        <Auth path="/login" />
-      </Router>
+      <React.Suspense fallback={<p>Loading</p>}>
+        <Router>
+          <Home path="/" />
+          <CreateThread path="/new" />
+          <ThreadDetail path="/threads/:threadId" />
+          <Auth path="/login" />
+        </Router>
+      </React.Suspense>
     </Wrapper>
   </React.Fragment>
 );
