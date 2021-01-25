@@ -1823,17 +1823,9 @@
     "@typescript-eslint/types" "4.6.1"
     eslint-visitor-keys "^2.0.0"
 
-"@urql/core@>=1.14.1", "@urql/core@>=1.15.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@urql/core/-/core-1.15.0.tgz#0f87e7046330580c499bd6e0d982ac3e8917adc0"
-  integrity sha512-M0HHiyxfmRa7jsReZU1gKAxoUoM/V5VCTYldJK96zuvvYllSw9aUwW0EX3/hRJRJaFWHOkhQ1p9Nto/Oou1y4A==
-  dependencies:
-    "@graphql-typed-document-node/core" "^3.1.0"
-    wonka "^4.0.14"
-
-"@urql/core@https://pkg.csb.dev/FormidableLabs/urql/commit/0cc4cae0/@urql/core":
+"@urql/core@>=1.14.1", "@urql/core@>=1.15.0", "@urql/core@https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/@urql/core":
   version "1.16.1"
-  resolved "https://pkg.csb.dev/FormidableLabs/urql/commit/0cc4cae0/@urql/core#5acc4d6f1afcf8da59d375fd55c359f9e3c27fde"
+  resolved "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/@urql/core#5acc4d6f1afcf8da59d375fd55c359f9e3c27fde"
   dependencies:
     "@graphql-typed-document-node/core" "^3.1.0"
     wonka "^4.0.14"
@@ -10859,11 +10851,11 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-"urql@https://pkg.csb.dev/FormidableLabs/urql/commit/0cc4cae0/urql":
+"urql@https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/urql":
   version "1.11.6"
-  resolved "https://pkg.csb.dev/FormidableLabs/urql/commit/0cc4cae0/urql#a28ece575de5901939380d0271e55638bebb25bb"
+  resolved "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/urql#172faa5f17590f70ac49f5acf009d72b893b4e8a"
   dependencies:
-    "@urql/core" "https://pkg.csb.dev/FormidableLabs/urql/commit/0cc4cae0/@urql/core"
+    "@urql/core" "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/@urql/core"
     wonka "^4.0.14"
 
 use@^3.1.0:

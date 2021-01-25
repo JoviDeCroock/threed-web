@@ -14,7 +14,11 @@
     "react-dom": "^17.0.1",
     "react-scripts": "^4.0.0",
     "styled-components": "^5.2.1",
-    "urql": "https://pkg.csb.dev/FormidableLabs/urql/commit/0cc4cae0/urql"
+    "urql": "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/urql"
+  },
+  "resolutions": {
+    "@urql/core": "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/@urql/core",
+    "urql": "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/urql"
   },
   "scripts": {
     "schema": "./scripts/schema.js",
