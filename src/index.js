@@ -13,7 +13,7 @@ import {
 import { persistedFetchExchange } from "@urql/exchange-persisted-fetch";
 import { offlineExchange } from "@urql/exchange-graphcache";
 import { makeDefaultStorage} from "@urql/exchange-graphcache/default-storage";
-import { SubscriptionClient } from "subscriptions-transport-ws";
+import { createClient as createWSClient } from "graphql-ws";
 import { devtoolsExchange } from "@urql/devtools";
 
 import App from "./App";
@@ -24,15 +24,12 @@ import { THREAD_FRAGMENT } from "./modules/threads/fragments";
 
 import schema from './schema.json';
 
-const subscriptionClient = new SubscriptionClient(
-  "wss://threed-test-api.herokuapp.com/subscriptions",
-  {
-    reconnect: true,
-    connectionParams: {
-      authToken: getToken()
-    }
-  }
-);
+const wsClient = createWSClient({
+  url: "wss://threed-test-api.herokuapp.com/graphql",
+  connectionParams: {
+    authToken: getToken()
+  },
+});
 
 const THREADS_QUERY = gql`
   query($sortBy: SortBy!) {
@@ -45,7 +42,7 @@ const THREADS_QUERY = gql`
 `;
 
 const cache = offlineExchange({
-  storage: makeDefaultStorage(),
+  // storage: makeDefaultStorage(),
   optimistic: {
     likeReply: (args, cache) => {
       const id = args.replyId;
@@ -253,8 +250,12 @@ const client = createClient({
     persistedFetchExchange(),
     fetchExchange,
     subscriptionExchange({
-      forwardSubscription: operation => subscriptionClient.request(operation)
-    })
+      forwardSubscription: operation => ({
+        subscribe: (sink) => ({
+          unsubscribe: wsClient.subscribe(operation, sink),
+        }),
+      }),
+    }),
   ],
   fetchOptions: () => {
     const token = getToken();
