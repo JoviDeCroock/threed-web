@@ -5,20 +5,16 @@
   "dependencies": {
     "@reach/router": "^1.3.4",
     "@urql/devtools": "^2.0.2",
-    "@urql/exchange-graphcache": "^3.1.11",
-    "@urql/exchange-persisted-fetch": "^1.2.3",
-    "graphql": "^15.4.0",
+    "@urql/exchange-graphcache": "^4.0.0",
+    "@urql/exchange-persisted-fetch": "^1.3.0",
+    "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
-    "graphql-ws": "^4.1.2",
+    "graphql-ws": "^4.1.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-scripts": "^4.0.0",
+    "react-scripts": "^4.0.2",
     "styled-components": "^5.2.1",
-    "urql": "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/urql"
-  },
-  "resolutions": {
-    "@urql/core": "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/@urql/core",
-    "urql": "https://pkg.csb.dev/FormidableLabs/urql/commit/d7ff4793/urql"
+    "urql": "^2.0.0"
   },
   "scripts": {
     "schema": "./scripts/schema.js",
@@ -43,7 +39,7 @@
     ]
   },
   "devDependencies": {
-    "@urql/introspection": "^0.1.1",
+    "@urql/introspection": "^0.2.0",
     "levenary": "^1.1.1",
     "node-fetch": "^2.6.1"
   }

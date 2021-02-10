@@ -11,7 +11,7 @@ fetch('https://threed-test-api.herokuapp.com/graphql', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     variables: {},
-    query: getIntrospectionQuery({ descriptions: false }),
+    query: getIntrospectionQuery({ descriptions: true }),
   }),
 })
   .then(result => result.json())
